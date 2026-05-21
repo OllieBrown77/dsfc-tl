@@ -716,31 +716,23 @@ h1,h2,h3,h4{font-family:'DM Serif Display',serif;font-weight:400;line-height:1.2
 // 5. Paste the URL below, replacing the placeholder:
 // ─────────────────────────────────────────────────────────────────────────────
 
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzDxMFd9JD6sO7U0SsPQnOkERd15aGb27OU5jCrqVCmlqNhOnoR1CID5cCwr1AgAdWxqw/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzdR68k4NEUQytaySEj2X-D7EthauvOmn9gyyWoSJG-TqhHvU6-N-0iE2Psujr_rTHglA/exec';
 
-let PILLARS = [];
-let SLIDES  = [];
-let DATA_LOADED = false;
+var DATA_LOADED = false;
 
 async function loadData() {
-  // Show loading state
   document.getElementById('data-loading').style.display = 'flex';
-
   try {
     const res = await fetch(APPS_SCRIPT_URL);
     const data = await res.json();
-    PILLARS = data.pillars || [];
-    SLIDES  = data.slides  || [];
-    DATA_LOADED = true;
+    if (data.pillars && data.pillars.length) PILLARS = data.pillars;
+    if (data.slides  && data.slides.length)  SLIDES  = data.slides;
   } catch(e) {
-    console.error('Failed to load data from Google Sheets:', e);
+    console.error('Failed to load from Google Sheets:', e);
     document.getElementById('data-error').style.display = 'block';
-    return;
   }
-
   document.getElementById('data-loading').style.display = 'none';
-
-  // Boot the app
+  DATA_LOADED = true;
   buildPills();
   buildPGrid();
   buildCarousel();
@@ -748,8 +740,8 @@ async function loadData() {
   initResources();
 }
 
-// Fallback — used only if APPS_SCRIPT_URL is still placeholder
-const PILLARS=[
+// Hardcoded fallback data — overwritten by Google Sheets fetch if successful
+var PILLARS=[
   {n:1,name:'Maximise the opportunity to learn',gtt:'GTT 2.1, 2.2',color:'#1B2A4A',bg:'#EEF1F8',path:false,
    rat:'The opportunity to learn is the single strongest predictor of student achievement. Time on task, pacing, and eliminating disruption are foundational — before any strategy can work, students need sustained, protected time.',
    src:'Rosenshine (2012) · Hattie (2009) — Visible Learning',
@@ -852,7 +844,7 @@ const PILLARS=[
    ]},
 ];
 
-const SLIDES=[
+var SLIDES=[
   {cat:'q',lbl:'Questioning',title:'Pose → Pause → Pounce → Bounce',body:'Pose the question, allow thinking time, select a student, then bounce to a second to agree, disagree, or extend.',tag:"If you're doing the talking, they're not doing the thinking."},
   {cat:'q',lbl:'Questioning',title:'Cold call',body:'No hands up. Every student prepares an answer. Select anyone. The expectation of participation keeps all minds in the room.',tag:"If you're doing the talking, they're not doing the thinking."},
   {cat:'q',lbl:'Questioning',title:'No opt out',body:"If a student cannot answer, give the answer to a peer, then return to the original student so they still retrieve and state it aloud.",tag:"If you're doing the talking, they're not doing the thinking."},
@@ -1398,18 +1390,8 @@ function setActive(el){
 }
 
 // ── BOOT ─────────────────────────────────────────────────────────────────────
-if (APPS_SCRIPT_URL && APPS_SCRIPT_URL !== 'YOUR_APPS_SCRIPT_URL_HERE') {
-  // Live mode — load from Google Sheets
-  loadData();
-} else {
-  // Fallback mode — use hardcoded data above
-  DATA_LOADED = true;
-  buildPills();
-  buildPGrid();
-  buildCarousel();
-  buildOnboarding();
-  initResources();
-}
+// Always try to load from Google Sheets; falls back to hardcoded data on error
+loadData();
 </script>
 </body>
 </html>
