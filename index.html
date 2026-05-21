@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teaching & Learning — Durham Sixth Form Centre</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B2A4A;--navy-mid:#243660;--navy-light:#EEF1F8;--teal:#0D7A6B;--teal-light:#E0F4F1;--gold:#C8973A;--gold-light:#FDF3E3;--purple:#534AB7;--purple-light:#EEEDFE;--coral:#C0453A;--coral-light:#FAECEB;--green:#3A6B2A;--green-light:#EAF3E0;--amber:#8A5010;--amber-light:#FDF0DE;--pink:#993556;--pink-light:#FBEAF0;--text:#1A1A2E;--text-muted:#5A6070;--text-faint:#8A909E;--bg:#F6F7FA;--surface:#FFFFFF;--border:rgba(26,26,46,0.10);--border-strong:rgba(26,26,46,0.18);--radius:10px;--radius-lg:14px;--t:0.18s ease}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.6;min-height:100vh}
+h1,h2,h3,h4{font-family:'DM Serif Display',serif;font-weight:400;line-height:1.25}
+.nav{background:var(--navy);padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:58px;position:sticky;top:0;z-index:100}
+.nav-logo{display:flex;align-items:center;gap:12px;cursor:pointer}
+.nav-logo-mark{width:32px;height:32px;background:var(--gold);border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:14px;color:var(--navy)}
+.nav-logo-text{color:white;font-size:14px;font-weight:500}
+.nav-logo-sub{color:rgba(255,255,255,0.45);font-size:11px}
+.nav-links{display:flex;gap:2px}
+.nav-link{color:rgba(255,255,255,0.65);font-size:13px;padding:6px 14px;border-radius:6px;cursor:pointer;transition:var(--t);border:none;background:none;font-family:'DM Sans',sans-serif}
+.nav-link:hover,.nav-link.active{color:white;background:rgba(255,255,255,0.10)}
+.page{display:none}
+.page.active{display:block}
+/* TERM BANNER */
+.term-banner{background:#111E38;border-bottom:1px solid rgba(255,255,255,0.08);padding:11px 0;display:flex;align-items:center}
+.term-label{font-size:10px;font-weight:700;letter-spacing:0.10em;text-transform:uppercase;color:var(--gold);flex-shrink:0;background:rgba(200,151,58,0.15);padding:4px 10px;border-radius:4px;border:1px solid rgba(200,151,58,0.3)}
+.term-text{font-size:13px;color:rgba(255,255,255,0.85);font-weight:400}
+.term-tags{display:flex;gap:6px;margin-left:auto}
+.term-tag{font-size:10px;padding:3px 9px;border-radius:20px;background:rgba(255,255,255,0.10);color:rgba(255,255,255,0.70);border:1px solid rgba(255,255,255,0.18)}
+/* HERO */
+.hero{background:var(--surface);border-bottom:1px solid var(--border);padding:0;width:100%}
+.hero h1{font-size:30px;color:var(--navy);margin-bottom:6px}
+.hero p{font-size:14px;color:var(--text-muted);margin-bottom:28px;max-width:460px}
+.route-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px}
+.route-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px 20px;cursor:pointer;transition:var(--t);position:relative;overflow:hidden}
+.route-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px}
+.rc-navy::before{background:var(--navy)}
+.rc-teal::before{background:var(--teal)}
+.rc-purple::before{background:var(--purple)}
+.route-card:hover{border-color:var(--border-strong);transform:translateY(-1px)}
+.rc-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:17px}
+.rc-title{font-size:14px;font-weight:500;color:var(--text);margin-bottom:5px}
+.rc-desc{font-size:12px;color:var(--text-muted);line-height:1.5;margin-bottom:12px}
+.rc-cta{font-size:11px;font-weight:500;display:flex;align-items:center;gap:4px}
+/* PILLAR PILLS */
+.strip-label{font-size:10px;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;color:var(--text-faint);margin-bottom:10px}
+.pillar-pills{display:flex;flex-wrap:nowrap;gap:6px;overflow:hidden}
+.pillar-pill{display:flex;align-items:center;gap:5px;font-size:10px;padding:4px 9px;border-radius:20px;border:1px solid var(--border);background:var(--surface);color:var(--text-muted);cursor:pointer;transition:var(--t);white-space:nowrap}
+.pillar-pill:hover{background:var(--bg);border-color:var(--border-strong);color:var(--text)}
+.p-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+/* CAROUSEL */
+.carousel-wrap{background:var(--navy);padding:28px 0;width:100%}
+.carousel-hdr{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:18px}
+.carousel-hdr h2{font-size:20px;color:white}
+.week-chip{font-size:11px;color:rgba(255,255,255,0.40);background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.10);padding:4px 11px;border-radius:20px}
+.c-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.11);border-radius:var(--radius-lg);padding:26px 28px;display:none}
+.c-card.active{display:block;animation:fadeUp 0.25s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.c-cat{font-size:10px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;display:inline-block;padding:3px 10px;border-radius:20px;margin-bottom:10px}
+.cat-q{background:rgba(200,151,58,0.18);color:#E8C87A}
+.cat-d{background:rgba(13,122,107,0.18);color:#5DCAA5}
+.cat-m{background:rgba(83,74,183,0.18);color:#AFA9EC}
+.cat-r{background:rgba(192,69,58,0.18);color:#F09595}
+.cat-n{background:rgba(58,107,42,0.18);color:#97C459}
+.c-consider{font-size:10px;color:rgba(255,255,255,0.30);letter-spacing:0.05em;text-transform:uppercase;margin-bottom:5px}
+.c-title{font-family:'DM Serif Display',serif;font-size:22px;color:white;margin-bottom:11px}
+.c-body{font-size:14px;color:rgba(255,255,255,0.70);line-height:1.65;margin-bottom:18px;max-width:560px}
+.c-tagline{font-family:'DM Serif Display',serif;font-style:italic;font-size:13px;color:rgba(255,255,255,0.32);border-left:2px solid rgba(255,255,255,0.14);padding-left:12px}
+.c-footer{display:flex;align-items:center;justify-content:space-between;margin-top:18px}
+.c-counter{font-size:12px;color:rgba(255,255,255,0.32)}
+.c-dots{display:flex;gap:6px}
+.c-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.18);cursor:pointer;transition:var(--t)}
+.c-dot.active{background:var(--gold);width:18px;border-radius:3px}
+.c-nav{display:flex;gap:8px}
+.c-btn{width:32px;height:32px;border-radius:8px;border:1px solid rgba(255,255,255,0.14);background:rgba(255,255,255,0.05);color:white;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--t);font-size:15px}
+.c-btn:hover{background:rgba(255,255,255,0.12)}
+/* BODY */
+.body-wrap{padding:28px 32px;background:var(--bg)}
+.sec-label{font-size:10px;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;color:var(--text-faint);margin-bottom:14px}
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:28px}
+.feat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px;cursor:pointer;transition:var(--t)}
+.feat-card:hover{border-color:var(--border-strong);transform:translateY(-1px)}
+.feat-icon{font-size:20px;margin-bottom:8px}
+.feat-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:3px}
+.feat-desc{font-size:11px;color:var(--text-muted);line-height:1.5}
+.recent-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.r-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:14px}
+.r-type{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px}
+.r-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:4px}
+.r-meta{font-size:11px;color:var(--text-muted)}
+/* PAGE HEADER */
+.ph{background:var(--surface);border-bottom:1px solid var(--border);padding:24px 32px}
+.bc{font-size:11px;color:var(--text-faint);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.bc span{cursor:pointer}.bc span:hover{color:var(--text-muted)}
+.pg-title{font-size:26px;color:var(--navy);margin-bottom:4px}
+.pg-sub{font-size:13px;color:var(--text-muted)}
+/* PILLARS HUB */
+.pillars-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;padding:24px 32px;max-width:1320px;margin:0 auto}
+.p-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px 20px;cursor:pointer;transition:var(--t);display:flex;align-items:flex-start;gap:14px}
+.p-card:hover{border-color:var(--border-strong);transform:translateY(-1px)}
+.p-num{width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:16px;flex-shrink:0}
+.p-name{font-size:14px;font-weight:500;color:var(--text);margin-bottom:3px}
+.p-gtt{font-size:11px;color:var(--text-faint);margin-bottom:8px}
+.p-tags{display:flex;gap:5px;flex-wrap:wrap}
+.ptag{font-size:10px;padding:2px 7px;border-radius:20px;background:var(--bg);border:1px solid var(--border);color:var(--text-muted)}
+.ptag-path{background:var(--green-light);border-color:#C0DD97;color:var(--green)}
+/* PILLAR DETAIL */
+.pd-hdr{background:var(--surface);border-bottom:1px solid var(--border);padding:24px 32px;width:100%}.pd-hdr-inner{max-width:1320px;margin:0 auto}
+.pd-top{display:flex;align-items:flex-start;gap:16px;margin-bottom:16px}
+.pd-num{width:52px;height:52px;border-radius:var(--radius);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:22px}
+.pd-name{font-size:24px;color:var(--navy);margin-bottom:3px}
+.pd-gtt{font-size:12px;color:var(--text-muted)}
+.path-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:500;color:var(--green);background:var(--green-light);border:1px solid #C0DD97;padding:5px 12px;border-radius:20px;margin-left:auto;flex-shrink:0}
+.rat-box{background:#EEF3FB;border:1px solid #C5D4EE;border-radius:var(--radius-lg);padding:16px 20px;margin:16px auto 0;max-width:calc(1320px - 64px);width:calc(100% - 64px)}
+.rat-lbl{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.07em;color:var(--navy);margin-bottom:6px}
+.rat-txt{font-size:13px;color:#1B3668;line-height:1.6;margin-bottom:8px}
+.rat-src{font-size:11px;color:#4A6090}
+/* TOOLS */
+.tools-wrap{padding:24px 32px;max-width:1320px;margin:0 auto}
+.tools-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.f-chips{display:flex;gap:6px}
+.fchip{font-size:11px;padding:4px 10px;border-radius:20px;border:1px solid var(--border);background:var(--surface);color:var(--text-muted);cursor:pointer;transition:var(--t)}
+.fchip:hover{border-color:var(--border-strong);color:var(--text)}
+.fchip.on{background:var(--navy);border-color:var(--navy);color:white}
+.tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.t-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px;cursor:pointer;transition:var(--t)}
+.t-card:hover{border-color:var(--border-strong)}
+.t-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.t-type{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.05em;padding:2px 8px;border-radius:20px}
+.tt-s{background:var(--green-light);color:var(--green)}
+.tt-t{background:var(--purple-light);color:var(--purple)}
+.eef-wrap{display:flex;align-items:center;gap:5px}
+.eef-mo{font-size:12px;font-weight:500;color:var(--teal)}
+.eef-locks{display:flex;gap:1px}
+.lk{width:7px;height:9px;background:var(--border-strong);border-radius:1px}
+.lk-on{background:var(--teal)}
+.t-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:5px}
+.t-desc{font-size:11px;color:var(--text-muted);line-height:1.5;margin-bottom:12px}
+.t-foot{display:flex;align-items:center;justify-content:space-between}
+.t-link{font-size:11px;font-weight:500;color:var(--navy)}
+.t-eef{font-size:10px;color:var(--text-faint)}
+/* TWO PANELS */
+.two-panels{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:0 32px 28px;max-width:1320px;margin:0 auto}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px}
+.panel-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:14px}
+.r-item{padding:10px 0;border-bottom:1px solid var(--border)}
+.r-item:last-child{border-bottom:none;padding-bottom:0}
+.r-ti{font-size:12px;font-weight:500;color:var(--text);margin-bottom:2px}
+.r-au{font-size:11px;color:var(--text-muted);margin-bottom:4px}
+.r-tag{font-size:10px;padding:2px 7px;border-radius:20px;background:var(--bg);border:1px solid var(--border);color:var(--text-muted)}
+.r-tag.ess{background:var(--gold-light);border-color:#E8C87A;color:var(--amber)}
+.d-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;transition:var(--t);margin-bottom:7px}
+.d-item:hover{background:var(--bg)}
+.d-item:last-child{margin-bottom:0}
+.d-ico{width:30px;height:30px;border-radius:7px;background:var(--purple-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px}
+.d-name{font-size:12px;font-weight:500;color:var(--text);flex:1}
+.d-type{font-size:10px;color:var(--text-faint)}
+/* PATHWAY STRIP */
+.pw-strip{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px 20px;margin:16px 32px}
+.pw-top{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.pw-ico{width:36px;height:36px;background:var(--green-light);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.pw-title{font-size:14px;font-weight:500;color:var(--text)}
+.pw-sub{font-size:12px;color:var(--text-muted)}
+.pw-sessions{display:flex;position:relative}
+.pw-sessions::before{content:'';position:absolute;top:14px;left:14px;right:14px;height:1px;background:var(--border);z-index:0}
+.pw-s{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1}
+.pw-dot{width:28px;height:28px;border-radius:50%;background:var(--surface);border:2px solid var(--border-strong);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:var(--text-muted)}
+.pw-dot.done{background:var(--teal);border-color:var(--teal);color:white}
+.pw-dot.cur{background:var(--navy);border-color:var(--navy);color:white;font-size:10px}
+.pw-lbl{font-size:10px;color:var(--text-muted);text-align:center;line-height:1.3;max-width:64px}
+/* ML */
+.ml-stats-wrap{background:var(--bg);border-bottom:1px solid var(--border)}.ml-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:16px 32px;max-width:1320px;margin:0 auto}
+.ml-stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px;text-align:center}
+.ml-n{font-size:20px;font-weight:500;color:var(--navy)}
+.ml-l{font-size:11px;color:var(--text-muted)}
+.ml-body{padding:24px 32px;display:flex;flex-direction:column;gap:20px;max-width:1320px;margin:0 auto}
+.ml-sec-lbl{font-size:10px;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;color:var(--text-faint);margin-bottom:12px}
+.cy-steps{display:flex}
+.cy-s{flex:1;padding:12px 14px;background:var(--bg);border:1px solid var(--border);border-right:none}
+.cy-s:first-child{border-radius:var(--radius) 0 0 var(--radius)}
+.cy-s:last-child{border-right:1px solid var(--border);border-radius:0 var(--radius) var(--radius) 0}
+.cy-n{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-faint);margin-bottom:4px}
+.cy-t{font-size:12px;font-weight:500;color:var(--text);margin-bottom:3px}
+.cy-d{font-size:11px;color:var(--text-muted);line-height:1.4}
+.sp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sp-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:14px}
+.sp-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.sp-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.sp-nm{font-size:13px;font-weight:500;color:var(--text)}
+.sp-ld{font-size:11px;color:var(--text-muted)}
+.sp-bar-bg{background:var(--bg);border-radius:20px;height:5px;margin-bottom:6px;overflow:hidden}
+.sp-bar{height:100%;border-radius:20px}
+.sp-meta{display:flex;justify-content:space-between;font-size:10px;color:var(--text-faint)}
+.ag-list{display:flex;flex-direction:column;gap:7px}
+.ag-item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg)}
+.ag-n{width:22px;height:22px;border-radius:50%;background:var(--teal-light);border:1px solid #9FE1CB;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;color:var(--teal);flex-shrink:0;margin-top:1px}
+.ag-title{font-size:12px;font-weight:500;color:var(--text)}
+.ag-note{font-size:11px;color:var(--text-muted)}
+.ag-time{font-size:10px;color:var(--text-faint);margin-left:auto;white-space:nowrap;flex-shrink:0}
+/* THINKING SPACE */
+.ts-filters{padding:10px 32px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ts-body{padding:24px 32px;max-width:1320px;margin:0 auto}
+.ts-feat{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:22px 24px;margin-bottom:20px}
+.ts-ftag{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.07em;color:var(--amber);background:var(--amber-light);padding:3px 9px;border-radius:20px;display:inline-block;margin-bottom:12px}
+.ts-ftitle{font-size:18px;color:var(--navy);margin-bottom:8px;line-height:1.35}
+.ts-fmeta{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.avatar{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;flex-shrink:0}
+.ts-author{font-size:12px;color:var(--text-muted)}
+.ts-excerpt{font-family:'DM Serif Display',serif;font-style:italic;font-size:14px;color:var(--text-muted);line-height:1.65;margin-bottom:14px}
+.ts-ptags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.ts-ptag{font-size:10px;padding:3px 8px;border-radius:20px;background:var(--bg);border:1px solid var(--border);color:var(--text-muted)}
+.ts-ffoot{display:flex;align-items:center;justify-content:space-between}
+.ts-rlink{font-size:12px;font-weight:500;color:var(--navy)}
+.ts-stats{display:flex;gap:12px}
+.ts-stat{font-size:11px;color:var(--text-faint)}
+.e-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-bottom:24px}
+.e-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px;cursor:pointer;transition:var(--t)}
+.e-card:hover{border-color:var(--border-strong)}
+.e-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.e-type{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.05em;padding:2px 8px;border-radius:20px}
+.et-re{background:var(--teal-light);color:var(--teal)}
+.et-ex{background:var(--navy-light);color:var(--navy)}
+.et-rs{background:var(--amber-light);color:var(--amber)}
+.et-ls{background:var(--purple-light);color:var(--purple)}
+.e-date{font-size:10px;color:var(--text-faint)}
+.e-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:5px;line-height:1.4}
+.e-exc{font-size:11px;color:var(--text-muted);line-height:1.5;margin-bottom:10px}
+.e-foot{display:flex;align-items:center;justify-content:space-between}
+.e-auth{display:flex;align-items:center;gap:6px}
+.e-name{font-size:11px;color:var(--text-muted)}
+.e-pill{font-size:10px;padding:2px 7px;border-radius:20px;background:var(--bg);border:1px solid var(--border);color:var(--text-faint)}
+.contrib{background:var(--surface);border:1px solid #AFA9EC;border-radius:var(--radius-lg);padding:18px;display:flex;align-items:flex-start;gap:14px}
+.contrib-ico{width:38px;height:38px;background:var(--purple-light);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.contrib-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:4px}
+.contrib-desc{font-size:12px;color:var(--text-muted);line-height:1.5;margin-bottom:10px}
+.contrib-btn{font-size:12px;font-weight:500;color:var(--purple);background:var(--purple-light);border:1px solid #AFA9EC;border-radius:var(--radius);padding:7px 16px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:var(--t);font-family:'DM Sans',sans-serif}
+.contrib-btn:hover{background:#e0dffb}
+/* RESOURCES PAGE */
+.res-ph{background:var(--surface);border-bottom:1px solid var(--border);padding:20px 32px}
+.res-pt{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:14px}
+.view-toggle{display:flex;gap:0;border:1px solid var(--border-strong);border-radius:var(--radius);overflow:hidden;flex-shrink:0;margin-top:4px}
+.vt-btn{font-size:11px;font-weight:500;padding:6px 14px;background:var(--surface);color:var(--text-muted);border:none;cursor:pointer;border-right:1px solid var(--border-strong);font-family:'DM Sans',sans-serif;transition:var(--t)}
+.vt-btn:last-child{border-right:none}
+.vt-btn.active{background:var(--navy);color:white}
+.res-search-wrap{position:relative;margin-bottom:10px}
+.res-search{width:100%;padding:10px 14px 10px 38px;font-size:14px;border:1px solid var(--border-strong);border-radius:var(--radius-lg);background:var(--surface);color:var(--text);font-family:'DM Sans',sans-serif}
+.res-search:focus{outline:none;border-color:var(--navy)}
+.res-search::placeholder{color:var(--text-faint)}
+.res-search-ico{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:16px;color:var(--text-faint);pointer-events:none}
+.res-search-meta{display:flex;align-items:center;justify-content:space-between}
+.res-count{font-size:11px;color:var(--text-muted)}
+.res-clear{font-size:11px;color:var(--navy);cursor:pointer;display:none}
+.res-filter-row{padding:10px 32px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.res-fl{font-size:11px;color:var(--text-faint);margin-right:4px;white-space:nowrap}
+.rchip{font-size:11px;padding:4px 10px;border-radius:20px;border:1px solid var(--border);background:var(--surface);color:var(--text-muted);cursor:pointer;transition:var(--t);white-space:nowrap}
+.rchip:hover{border-color:var(--border-strong);color:var(--text)}
+.rchip.on{background:var(--navy);border-color:var(--navy);color:white}
+.rchip.tool-on{background:var(--green-light);border-color:#C0DD97;color:var(--green)}
+.rchip.res-on{background:var(--navy-light);border-color:#B5D4F4;color:var(--navy)}
+.rchip.dsfc-on{background:var(--purple-light);border-color:#AFA9EC;color:var(--purple)}
+.rchip.sess-on{background:var(--amber-light);border-color:#FAC775;color:var(--amber)}
+.rdivider{width:1px;height:16px;background:var(--border);margin:0 4px;flex-shrink:0}
+/* AZ VIEW */
+.az-body{padding:20px 32px;background:var(--bg);max-width:1320px;margin:0 auto}
+.res-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
+.rs-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:10px 12px;text-align:center}
+.rs-n{font-size:18px;font-weight:500;color:var(--navy)}
+.rs-l{font-size:10px;color:var(--text-muted)}
+.az-jump{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:16px}
+.ajbtn{width:26px;height:26px;border-radius:7px;border:1px solid var(--border);background:var(--surface);font-size:11px;font-weight:500;color:var(--text-faint);display:flex;align-items:center;justify-content:center;cursor:default;font-family:'DM Sans',sans-serif}
+.ajbtn.has{cursor:pointer;color:var(--text-muted)}
+.ajbtn.has:hover{background:var(--bg);border-color:var(--border-strong)}
+.az-group{margin-bottom:20px}
+.az-letter-hdr{font-family:'DM Serif Display',serif;font-size:22px;color:var(--navy);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border);display:flex;align-items:baseline;gap:8px}
+.az-lcount{font-size:11px;color:var(--text-faint);font-family:'DM Sans',sans-serif;font-weight:400}
+.az-items{display:flex;flex-direction:column;gap:7px}
+.az-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:12px 14px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:var(--t)}
+.az-item:hover{border-color:var(--border-strong)}
+.az-ico{width:32px;height:32px;border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.az-body-col{flex:1;min-width:0}
+.az-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:3px}
+.az-meta{font-size:11px;color:var(--text-muted);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.az-right{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.txs{font-size:10px;padding:2px 6px;border-radius:20px;white-space:nowrap}
+.eef-i{display:flex;align-items:center;gap:3px}
+.eef-m{font-size:11px;font-weight:500;color:var(--teal)}
+.lkr{display:flex;gap:1px}
+.lki{width:5px;height:7px;background:var(--border-strong);border-radius:1px}
+.lki.on{background:var(--teal)}
+/* PILLAR VIEW */
+.pv-body{padding:20px 32px;background:var(--bg);max-width:1320px;margin:0 auto}
+.pv-expand-row{display:flex;justify-content:flex-end;gap:8px;margin-bottom:12px}
+.pv-btn{font-size:11px;color:var(--text-muted);cursor:pointer;padding:4px 10px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);font-family:'DM Sans',sans-serif;transition:var(--t)}
+.pv-btn:hover{background:var(--bg);border-color:var(--border-strong)}
+.pv-section{margin-bottom:10px;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border)}
+.pv-hdr{background:var(--surface);padding:13px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none;transition:var(--t)}
+.pv-hdr:hover{background:var(--bg)}
+.pv-num{width:36px;height:36px;border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:500;flex-shrink:0;font-family:'DM Serif Display',serif}
+.pv-info{flex:1;min-width:0}
+.pv-name{font-size:14px;font-weight:500;color:var(--text);margin-bottom:2px}
+.pv-sub{font-size:11px;color:var(--text-muted);display:flex;align-items:center;gap:8px}
+.pv-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.pv-count{font-size:11px;color:var(--text-muted);background:var(--bg);border:1px solid var(--border);padding:3px 8px;border-radius:20px}
+.pv-path-badge{font-size:10px;font-weight:500;color:var(--green);background:var(--green-light);border:1px solid #C0DD97;padding:2px 8px;border-radius:20px;white-space:nowrap}
+.pv-chevron{font-size:14px;color:var(--text-faint);transition:0.2s;display:inline-block}
+.pv-open .pv-chevron{transform:rotate(180deg)}
+.pv-body-inner{display:none;background:var(--bg);border-top:1px solid var(--border)}
+.pv-open .pv-body-inner{display:block}
+.pv-sublabel{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-faint);padding:10px 16px 6px;display:flex;align-items:center;gap:6px}
+.pv-sublabel::after{content:'';flex:1;height:0.5px;background:var(--border)}
+.pv-row{display:flex;align-items:center;gap:10px;padding:9px 16px;background:var(--surface);border-bottom:1px solid var(--border);cursor:pointer;transition:var(--t)}
+.pv-row:hover{background:var(--bg)}
+.pv-row:last-child{border-bottom:none}
+.pv-row-ico{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.pv-row-title{font-size:12px;font-weight:500;color:var(--text);flex:1;min-width:0}
+.pv-row-meta{font-size:10px;color:var(--text-muted)}
+.pv-row-right{display:flex;align-items:center;gap:6px;flex-shrink:0}
+/* MAX WIDTH + LAYOUT WRAPPERS */
+.mw{max-width:1320px;margin:0 auto;width:100%}
+.nav .mw{display:flex;align-items:center;justify-content:space-between;height:58px}
+.term-banner .mw{display:flex;align-items:center;gap:16px}
+.hero-inner{display:grid;grid-template-columns:1fr 260px;gap:28px;align-items:stretch;padding:32px 32px 32px;max-width:1320px;margin:0 auto;width:100%}
+.hero-left{display:flex;flex-direction:column}
+.hero-right{}
+.hero-right-title{font-size:10px;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;color:var(--text-faint);margin-bottom:12px}
+.hero-section-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:14px}
+.hero-feat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:10px;cursor:pointer;transition:var(--t)}
+.hero-feat-card:hover{border-color:var(--border-strong);transform:translateY(-1px)}
+.hfc-icon{font-size:16px;margin-bottom:6px}
+.hfc-title{font-size:11px;font-weight:500;color:var(--text);margin-bottom:2px}
+.hfc-desc{font-size:10px;color:var(--text-muted);line-height:1.3}
+.hero-recent-title{font-size:10px;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;color:var(--text-faint);margin-bottom:8px}
+.hero-r-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:8px 10px;margin-bottom:5px}
+.hero-r-card:last-child{margin-bottom:0}
+.hero-r-type{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:3px}
+.hero-r-title{font-size:11px;font-weight:500;color:var(--text);margin-bottom:2px;line-height:1.4}
+.hero-r-meta{font-size:10px;color:var(--text-muted)}
+/* CAROUSEL WIDE */
+.carousel-inner{max-width:1320px;margin:0 auto;padding:0 32px;width:100%}
+.c-card-inner{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
+.c-card-right{border-left:1px solid rgba(255,255,255,0.10);padding-left:32px}
+.c-related-label{font-size:10px;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;color:rgba(255,255,255,0.30);margin-bottom:12px}
+.c-rel-item{padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.08)}
+.c-rel-item:last-child{border-bottom:none}
+.c-rel-title{font-size:12px;font-weight:500;color:rgba(255,255,255,0.70);margin-bottom:2px}
+.c-rel-cat{font-size:10px;color:rgba(255,255,255,0.35)}
+/* CONTENT PAGES MAX WIDTH */
+.content-mw{max-width:1320px;margin:0 auto}
+/* BIGGER TYPE SCALE */
+.hero-h1{font-family:'DM Serif Display',serif;font-size:28px;color:var(--navy);margin-bottom:8px;font-weight:400;line-height:1.25}
+.hero-sub{font-size:14px;color:var(--text-muted);margin-bottom:22px;line-height:1.6}
+.pg-title{font-size:28px!important}
+.pg-sub{font-size:14px!important}
+.rat-txt{font-size:14px!important}
+.t-title{font-size:14px!important}
+.t-desc{font-size:12px!important}
+.panel-title{font-size:14px!important}
+.r-ti{font-size:13px!important}
+.pv-name{font-size:15px!important}
+/* ROUTE CARDS BIGGER */
+.rc-title{font-size:16px!important;margin-bottom:6px!important}
+.rc-desc{font-size:13px!important}
+.rc-cta{font-size:12px!important}
+/* TOOLS GRID MAX COLUMNS AT WIDE */
+.tools-grid{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))!important}
+/* PAGE CONTENT WRAPPER */
+.page-body-mw{max-width:1320px;margin:0 auto}
+</style>
+</head>
+<body>
+
+<!-- Loading overlay -->
+<div id="data-loading" style="display:none;position:fixed;inset:0;background:rgba(27,42,74,0.85);z-index:9999;align-items:center;justify-content:center;flex-direction:column;gap:14px">
+  <div style="width:40px;height:40px;border:3px solid rgba(255,255,255,0.2);border-top-color:#C8973A;border-radius:50%;animation:spin 0.8s linear infinite"></div>
+  <div style="color:rgba(255,255,255,0.8);font-size:14px;font-family:'DM Sans',sans-serif">Loading resources from Google Sheets…</div>
+</div>
+<div id="data-error" style="display:none;background:#FAECEB;border-bottom:2px solid #C0453A;padding:10px 32px;font-size:13px;color:#7A1A10;font-family:'DM Sans',sans-serif">
+  ⚠️ Could not load data from Google Sheets. Check that your Apps Script URL is correct and the deployment is set to "Anyone can access". The site is showing built-in fallback data.
+  <button onclick="this.parentElement.style.display='none'" style="margin-left:16px;background:none;border:none;cursor:pointer;font-size:13px;color:#7A1A10;font-weight:500">Dismiss ×</button>
+</div>
+<style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+
+<nav class="nav">
+  <div style="display:flex;align-items:center;justify-content:space-between;width:100%;max-width:1320px;padding:0 32px;margin:0 auto;height:58px">
+  <div class="nav-logo" onclick="go('home')">
+    <div class="nav-logo-mark">T&L</div>
+    <div><div class="nav-logo-text">Teaching & Learning</div><div class="nav-logo-sub">Durham Sixth Form Centre</div></div>
+  </div>
+  <div class="nav-links">
+    <button class="nav-link active" onclick="go('home');setActive(this)">Home</button>
+    <button class="nav-link" onclick="go('pillars');setActive(this)">Pillars</button>
+    <button class="nav-link" onclick="go('ml');setActive(this)">Middle leaders</button>
+    <button class="nav-link" onclick="go('ts');setActive(this)">Thinking Space</button>
+    <button class="nav-link" onclick="go('resources');setActive(this)">Resources A&ndash;Z</button>
+  </div>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div id="pg-home" class="page active">
+  <div class="term-banner">
+    <div style="max-width:1320px;margin:0 auto;width:100%;display:flex;align-items:center;gap:16px;padding:0 32px">
+      <div class="term-label">This half term</div>
+      <div class="term-text">Summer 1 2026 · Activating metacognition — helping students think about their thinking</div>
+      <div class="term-tags"><span class="term-tag">Pillar 3</span><span class="term-tag">Pillar 9</span><span class="term-tag">GTT 4.6</span></div>
+    </div>
+  </div>
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-h1">What are you working on today?</div>
+        <div class="hero-sub">Find research-backed tools and strategies to develop your teaching practice at DSFC.</div>
+        <div class="route-cards">
+          <div class="route-card rc-navy" onclick="go('onboarding')">
+            <div class="rc-icon" style="background:var(--navy-light)">🚪</div>
+            <div class="rc-title">New to DSFC</div>
+            <div class="rc-desc">Start here. A sequenced six-step route through what you need in your first term.</div>
+            <div class="rc-cta" style="color:var(--navy)">Begin the induction route →</div>
+          </div>
+          <div class="route-card rc-teal" onclick="go('pillars')">
+            <div class="rc-icon" style="background:var(--teal-light)">📊</div>
+            <div class="rc-title">Develop my practice</div>
+            <div class="rc-desc">Browse by the area of teaching you want to work on — tools, research, and sessions in one place.</div>
+            <div class="rc-cta" style="color:var(--teal)">Browse the ten pillars →</div>
+          </div>
+          <div class="route-card rc-purple" onclick="go('ml')">
+            <div class="rc-icon" style="background:var(--purple-light)">👥</div>
+            <div class="rc-title">I lead T&L</div>
+            <div class="rc-desc">Coaching frameworks, observation tools, strand leadership, and conference resources.</div>
+            <div class="rc-cta" style="color:var(--purple)">Go to leadership hub →</div>
+          </div>
+        </div>
+        <div class="strip-label">Browse by policy pillar</div>
+        <div class="pillar-pills" id="pills"></div>
+
+      </div>
+      <div class="hero-right">
+        <div class="hero-right-title">Site sections</div>
+        <div class="hero-section-grid">
+          <div class="hero-feat-card" onclick="go('pillars')"><div class="hfc-icon">🧱</div><div class="hfc-title">Policy pillars</div><div class="hfc-desc">Ten pillars with tools and research</div></div>
+          <div class="hero-feat-card"><div class="hfc-icon">🗺️</div><div class="hfc-title">CPD pathways</div><div class="hfc-desc">Seven development strands</div></div>
+          <div class="hero-feat-card"><div class="hfc-icon">📈</div><div class="hfc-title">Great Teaching Toolkit</div><div class="hfc-desc">Dimensions and self-reflection</div></div>
+          <div class="hero-feat-card"><div class="hfc-icon">📄</div><div class="hfc-title">Key documents</div><div class="hfc-desc">Policy and essential reading</div></div>
+          <div class="hero-feat-card" onclick="go('ts')"><div class="hfc-icon">💡</div><div class="hfc-title">Thinking Space</div><div class="hfc-desc">Practitioner writing</div></div>
+          <div class="hero-feat-card" onclick="go('resources')"><div class="hfc-icon">🔎</div><div class="hfc-title">Resources A–Z</div><div class="hfc-desc">Everything in one place</div></div>
+        </div>
+        <div class="hero-recent-title">Recently added</div>
+        <div class="hero-r-card"><div class="hero-r-type" style="color:var(--green)">Tool</div><div class="hero-r-title">Cold-call questioning — a practical guide</div><div class="hero-r-meta">Pillar 4 · May 2026</div></div>
+        <div class="hero-r-card"><div class="hero-r-type" style="color:var(--purple)">Session resource</div><div class="hero-r-title">CFU Pathway — Session 3: Hinge questions</div><div class="hero-r-meta">Pillar 9 · Apr 2026</div></div>
+        <div class="hero-r-card"><div class="hero-r-type" style="color:#1D6B8A">New pillar</div><div class="hero-r-title">Teach with AI — now live</div><div class="hero-r-meta">Pillar 10 · May 2026</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="carousel-wrap">
+    <div class="carousel-inner">
+      <div class="carousel-hdr">
+        <h2>Pitch it up</h2>
+        <span class="week-chip" id="wk-label">Week —</span>
+      </div>
+      <div id="carousel"></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:14px">
+        <div class="c-dots" id="cdots"></div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <span class="c-counter" id="cctr">1 / 30</span>
+          <div class="c-nav">
+            <button class="c-btn" onclick="prev()">&#8592;</button>
+            <button class="c-btn" onclick="next()">&#8594;</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- PILLARS HUB -->
+<div id="pg-pillars" class="page">
+  <div class="ph">
+    <div class="bc"><span onclick="go('home')">Home</span><span>›</span><span style="color:var(--text)">Policy pillars</span></div>
+    <div class="pg-title">The nine pillars</div>
+    <div class="pg-sub">Select a pillar to find research-backed tools, DSFC resources, and the linked CPD pathway.</div>
+  </div>
+  <div class="pillars-grid" id="pgrid"></div>
+</div>
+
+<!-- PILLAR DETAIL -->
+<div id="pg-pd" class="page"><div id="pd-content"></div></div>
+
+<!-- MIDDLE LEADERS -->
+<div id="pg-ml" class="page">
+  <div class="ph">
+    <div class="bc"><span onclick="go('home')">Home</span><span>›</span><span style="color:var(--text)">Middle leaders hub</span></div>
+    <div style="display:flex;align-items:flex-start;justify-content:space-between">
+      <div><div class="pg-title">Middle leaders hub</div><div class="pg-sub">Resources for colleagues leading T&L — coaching, observations, strand leadership, and department meetings.</div></div>
+    </div>
+  </div>
+  <div class="ml-stats-wrap" style="background:var(--bg);border-bottom:1px solid var(--border)"><div class="ml-stats">
+    <div class="ml-stat"><div class="ml-n">7</div><div class="ml-l">Active pathways</div></div>
+    <div class="ml-stat"><div class="ml-n">3</div><div class="ml-l">Observation windows</div></div>
+    <div class="ml-stat"><div class="ml-n">12</div><div class="ml-l">Coaching pairs</div></div>
+    <div class="ml-stat"><div class="ml-n">14 May</div><div class="ml-l">Next T&L conference</div></div>
+  </div></div>
+  <div class="ml-body">
+    <div>
+      <div class="ml-sec-lbl">Instructional coaching</div>
+      <div class="tools-grid">
+        <div class="t-card"><div class="t-top"><span class="t-type" style="background:var(--purple-light);color:var(--purple);font-size:10px;font-weight:500;padding:2px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.04em">Framework</span></div><div class="t-title">EEF coaching cycle</div><div class="t-desc">The four-stage model — goal setting, focused observation, evidence-based feedback, and deliberate practice. With prompt cards for each stage.</div><div class="t-foot"><span class="t-link">Open guide →</span><span class="t-eef">PDF</span></div></div>
+        <div class="t-card"><div class="t-top"><span class="t-type" style="background:var(--purple-light);color:var(--purple);font-size:10px;font-weight:500;padding:2px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.04em">Questioning moves</span></div><div class="t-title">Coaching conversation toolkit</div><div class="t-desc">Deepen the Probe, Adaptive Stretch, Say It Better — three moves for post-observation conversations that activate thinking rather than transmit judgement.</div><div class="t-foot"><span class="t-link">Open guide →</span><span class="t-eef">PDF</span></div></div>
+        <div class="t-card"><div class="t-top"><span class="t-type tt-t">Template</span></div><div class="t-title">Goal-setting record</div><div class="t-desc">A one-page form for capturing the coachee's focus area, agreed success criteria, and planned actions — linked to the relevant pillar and GTT dimension.</div><div class="t-foot"><span class="t-link">Open template →</span><span class="t-eef">Word</span></div></div>
+      </div>
+    </div>
+    <div>
+      <div class="ml-sec-lbl">Peer observation cycle</div>
+      <div class="cy-steps" style="margin-bottom:12px">
+        <div class="cy-s"><div class="cy-n">Stage 1</div><div class="cy-t">Pre-observation meeting</div><div class="cy-d">Agree the focus, share context, set the coaching question</div></div>
+        <div class="cy-s"><div class="cy-n">Stage 2</div><div class="cy-t">Classroom observation</div><div class="cy-d">Scripted evidence — what was said and done, not judgements</div></div>
+        <div class="cy-s"><div class="cy-n">Stage 3</div><div class="cy-t">Debrief conversation</div><div class="cy-d">Coaching questions first, evidence second, next steps agreed</div></div>
+      </div>
+      <div class="tools-grid">
+        <div class="t-card"><div class="t-top"><span class="t-type" style="background:var(--amber-light);color:var(--amber);font-size:10px;font-weight:500;padding:2px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.04em">Focus tool</span></div><div class="t-title">Observation focus by pillar</div><div class="t-desc">A one-page focus sheet for each of the nine pillars — what to look for, scripted evidence prompts, and the questions to ask in debrief.</div><div class="t-foot"><span class="t-link">Browse all nine →</span></div></div>
+        <div class="t-card"><div class="t-top"><span class="t-type tt-t">Template</span></div><div class="t-title">Evidence record sheet</div><div class="t-desc">A clean scripting template — timestamps, teacher actions, student responses. Deliberately separates evidence from interpretation.</div><div class="t-foot"><span class="t-link">Open template →</span><span class="t-eef">Word</span></div></div>
+      </div>
+    </div>
+    <div>
+      <div class="ml-sec-lbl">Pathway strand progress</div>
+      <div class="sp-grid" style="margin-bottom:14px">
+        <div class="sp-card"><div class="sp-top"><div class="sp-dot" style="background:var(--navy)"></div><div><div class="sp-nm">Check for understanding</div><div class="sp-ld">Led by Oliver Brown</div></div></div><div class="sp-bar-bg"><div class="sp-bar" style="width:60%;background:var(--navy)"></div></div><div class="sp-meta"><span>3 of 5 sessions</span><span>Next: 14 May</span></div></div>
+        <div class="sp-card"><div class="sp-top"><div class="sp-dot" style="background:var(--teal)"></div><div><div class="sp-nm">Review learning</div><div class="sp-ld">Led by Sarah Mitchell</div></div></div><div class="sp-bar-bg"><div class="sp-bar" style="width:40%;background:var(--teal)"></div></div><div class="sp-meta"><span>2 of 5 sessions</span><span>Next: 16 May</span></div></div>
+        <div class="sp-card"><div class="sp-top"><div class="sp-dot" style="background:var(--purple)"></div><div><div class="sp-nm">Questioning effectively</div><div class="sp-ld">Led by James Carr</div></div></div><div class="sp-bar-bg"><div class="sp-bar" style="width:80%;background:var(--purple)"></div></div><div class="sp-meta"><span>4 of 5 sessions</span><span>Next: 21 May</span></div></div>
+        <div class="sp-card"><div class="sp-top"><div class="sp-dot" style="background:var(--amber)"></div><div><div class="sp-nm">Oracy and talk</div><div class="sp-ld">Led by Priya Nanda</div></div></div><div class="sp-bar-bg"><div class="sp-bar" style="width:20%;background:var(--amber)"></div></div><div class="sp-meta"><span>1 of 5 sessions</span><span>Next: 9 May</span></div></div>
+      </div>
+      <div class="tools-grid">
+        <div class="t-card"><div class="t-top"><span class="t-type tt-s">Guide</span></div><div class="t-title">How to run a pathway strand</div><div class="t-desc">Step-by-step for strand leaders — from designing your ignition session to planning the final embedding review, with session structure templates.</div><div class="t-foot"><span class="t-link">Open guide →</span></div></div>
+        <div class="t-card"><div class="t-top"><span class="t-type tt-t">Template</span></div><div class="t-title">Session planning template</div><div class="t-desc">A one-page planner for each pathway session — intention, activities, resources, and a 10-minute follow-up prompt for department meetings.</div><div class="t-foot"><span class="t-link">Open template →</span><span class="t-eef">Word</span></div></div>
+      </div>
+    </div>
+    <div>
+      <div class="ml-sec-lbl">Department meeting T&L focus — example 15-minute agenda</div>
+      <div class="ag-list">
+        <div class="ag-item"><div class="ag-n">1</div><div><div class="ag-title">Retrieval starter — what do we know about this pillar?</div><div class="ag-note">Quick no-stakes discussion, no slides needed</div></div><div class="ag-time">3 min</div></div>
+        <div class="ag-item"><div class="ag-n">2</div><div><div class="ag-title">Share a recent example from your classroom</div><div class="ag-note">One person shares — something that worked or didn't</div></div><div class="ag-time">5 min</div></div>
+        <div class="ag-item"><div class="ag-n">3</div><div><div class="ag-title">Identify one thing to try before next meeting</div><div class="ag-note">Concrete, specific, connected to current pathway focus</div></div><div class="ag-time">4 min</div></div>
+        <div class="ag-item"><div class="ag-n">4</div><div><div class="ag-title">Log it — brief note in the department T&L record</div><div class="ag-note">One sentence each. Builds the evidence trail over time.</div></div><div class="ag-time">3 min</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- THINKING SPACE -->
+<div id="pg-ts" class="page">
+  <div class="ph">
+    <div class="bc"><span onclick="go('home')">Home</span><span>›</span><span style="color:var(--text)">The Thinking Space</span></div>
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px">
+      <div><div class="pg-title">The Thinking Space</div><div class="pg-sub">Practitioner writing from DSFC colleagues — reflections, experiments, and responses to research. Updated each half term.</div></div>
+      <button class="contrib-btn" style="flex-shrink:0;margin-top:4px">✏️ Contribute an entry</button>
+    </div>
+  </div>
+  <div class="ts-filters">
+    <span style="font-size:11px;color:var(--text-faint);margin-right:4px">Filter</span>
+    <div class="fchip on">All</div><div class="fchip">Reflection</div><div class="fchip">Lesson study</div><div class="fchip">Research response</div><div class="fchip">Classroom experiment</div>
+    <div style="width:1px;height:14px;background:var(--border);margin:0 4px"></div>
+    <div class="fchip">Pillar 3</div><div class="fchip">Pillar 4</div><div class="fchip">Pillar 9</div>
+  </div>
+  <div class="ts-body">
+    <div style="margin-bottom:10px"><span class="ts-ftag">Featured this half term</span></div>
+    <div class="ts-feat">
+      <div class="ts-ftitle">What I got wrong about exit tickets — and what changed when I stopped treating them as accountability</div>
+      <div class="ts-fmeta">
+        <div class="avatar" style="background:var(--navy-light);color:var(--navy)">JC</div>
+        <span class="ts-author">James Carr · Economics</span><span style="color:var(--border-strong)">·</span><span class="ts-author">May 2026</span>
+      </div>
+      <div class="ts-excerpt">"For two years I used exit tickets at the end of lessons and thought I was checking for understanding. I wasn't. I was collecting evidence that students had been present. The shift happened when I read Wiliam's distinction between assessment of learning and assessment for learning — and realised I had been doing neither…"</div>
+      <div class="ts-ptags"><span class="ts-ptag">Pillar 9 — Check for understanding</span><span class="ts-ptag">GTT 4.3</span><span class="ts-ptag">CFU Pathway</span></div>
+      <div class="ts-ffoot"><span class="ts-rlink">Read full entry →</span><div class="ts-stats"><span class="ts-stat">👁 34 views</span><span class="ts-stat">⏱ 4 min read</span></div></div>
+    </div>
+    <div class="sec-label" style="margin-bottom:12px">Recent entries</div>
+    <div class="e-grid">
+      <div class="e-card"><div class="e-top"><span class="e-type et-re">Reflection</span><span class="e-date">Apr 2026</span></div><div class="e-title">Cold calling in a sixth form context — why it feels different and what I did about it</div><div class="e-exc">The no opt-out rule created anxiety I hadn't anticipated. Here's how I scaffolded into it over six weeks.</div><div class="e-foot"><div class="e-auth"><div class="avatar" style="width:20px;height:20px;font-size:9px;background:var(--navy-light);color:var(--navy)">PM</div><span class="e-name">P. Morris · Sociology</span></div><span class="e-pill">Pillar 4</span></div></div>
+      <div class="e-card"><div class="e-top"><span class="e-type et-ex">Experiment</span><span class="e-date">Apr 2026</span></div><div class="e-title">I tried interleaving across six lessons. Here's what the data showed.</div><div class="e-exc">A structured attempt to interleave two units in A Level Psychology — results were surprising in both directions.</div><div class="e-foot"><div class="e-auth"><div class="avatar" style="width:20px;height:20px;font-size:9px;background:var(--teal-light);color:var(--teal)">TK</div><span class="e-name">T. Khan · Psychology</span></div><span class="e-pill">Pillar 3</span></div></div>
+      <div class="e-card"><div class="e-top"><span class="e-type et-rs">Research response</span><span class="e-date">Mar 2026</span></div><div class="e-title">Reading Rosenshine in a vocational classroom — what transfers and what doesn't</div><div class="e-exc">Principles of Instruction is written with academic subjects in mind. This is what I found applying it to BTEC.</div><div class="e-foot"><div class="e-auth"><div class="avatar" style="width:20px;height:20px;font-size:9px;background:var(--amber-light);color:var(--amber)">OB</div><span class="e-name">O. Brown · Business</span></div><span class="e-pill">Pillar 8</span></div></div>
+      <div class="e-card"><div class="e-top"><span class="e-type et-ls">Lesson study</span><span class="e-date">Mar 2026</span></div><div class="e-title">Three of us taught the same concept differently — what we learned comparing the outcomes</div><div class="e-exc">A collaborative lesson study across History and Geography. Same objective, three different approaches to chunking.</div><div class="e-foot"><div class="e-auth"><div class="avatar" style="width:20px;height:20px;font-size:9px;background:var(--purple-light);color:var(--purple)">SH</div><span class="e-name">S. Hughes · History</span></div><span class="e-pill">Pillar 7</span></div></div>
+    </div>
+    <div class="contrib"><div class="contrib-ico">✏️</div><div><div class="contrib-title">Want to contribute?</div><div class="contrib-desc">The Thinking Space is built by DSFC colleagues reflecting honestly on their practice. Entries don't need to be polished — they need to be genuine.</div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px"><span class="fchip">Reflection</span><span class="fchip">Classroom experiment</span><span class="fchip">Lesson study</span><span class="fchip">Research response</span></div><button class="contrib-btn">✉️ Submit a draft to the T&L lead</button></div></div>
+  </div>
+</div>
+
+<!-- ONBOARDING -->
+<div id="pg-onboarding" class="page">
+  <div class="ph">
+    <div class="bc"><span onclick="go('home')">Home</span><span>›</span><span style="color:var(--text)">New to DSFC</span></div>
+    <div class="pg-title">Getting started</div>
+    <div class="pg-sub">A sequenced six-step route through what you need to know in your first term at DSFC.</div>
+  </div>
+  <div style="padding:24px 32px;display:flex;flex-direction:column;gap:10px" id="ob-steps"></div>
+</div>
+
+<!-- RESOURCES A-Z -->
+<div id="pg-resources" class="page">
+  <div class="res-ph">
+    <div class="bc"><span onclick="go('home')">Home</span><span>&#x203A;</span><span style="color:var(--text)" id="res-bc-current">Resources A&ndash;Z</span></div>
+    <div class="res-pt">
+      <div><div class="pg-title">Resources A&ndash;Z</div><div class="pg-sub">Every tool, research text, DSFC document, and session resource &mdash; searchable and browsable in one place.</div></div>
+      <div class="view-toggle">
+        <button class="vt-btn active" id="vt-az" onclick="setView('az')">A&ndash;Z</button>
+        <button class="vt-btn" id="vt-pillar" onclick="setView('pillar')">By pillar</button>
+        <button class="vt-btn" id="vt-dsfc" onclick="setView('dsfc')">DSFC only</button>
+      </div>
+    </div>
+    <div class="res-search-wrap">
+      <i class="ti ti-search res-search-ico" aria-hidden="true"></i>
+      <input class="res-search" type="text" id="res-search" placeholder="Search tools, research, documents&hellip;" oninput="onResSearch(this.value)">
+    </div>
+    <div class="res-search-meta">
+      <span class="res-count" id="res-count">Loading&hellip;</span>
+      <span class="res-clear" id="res-clear" onclick="clearResSearch()">Clear &times;</span>
+    </div>
+  </div>
+  <div class="res-filter-row">
+    <span class="res-fl">Type</span>
+    <div class="rchip tool-on" id="rf-tool" onclick="toggleRF('tool')">Classroom tools</div>
+    <div class="rchip res-on" id="rf-research" onclick="toggleRF('research')">Research texts</div>
+    <div class="rchip dsfc-on" id="rf-dsfc" onclick="toggleRF('dsfc')">DSFC resources</div>
+    <div class="rchip sess-on" id="rf-session" onclick="toggleRF('session')">Session materials</div>
+  </div>
+  <!-- AZ VIEW -->
+  <div id="res-az-view">
+    <div class="az-body">
+      <div class="res-stats">
+        <div class="rs-card"><div class="rs-n" id="rs-tools">0</div><div class="rs-l">Classroom tools</div></div>
+        <div class="rs-card"><div class="rs-n" id="rs-research">0</div><div class="rs-l">Research texts</div></div>
+        <div class="rs-card"><div class="rs-n" id="rs-dsfc">0</div><div class="rs-l">DSFC resources</div></div>
+        <div class="rs-card"><div class="rs-n" id="rs-session">0</div><div class="rs-l">Session materials</div></div>
+      </div>
+      <div class="az-jump" id="az-jump"></div>
+      <div id="az-content"></div>
+    </div>
+  </div>
+  <!-- PILLAR VIEW -->
+  <div id="res-pillar-view" style="display:none">
+    <div class="pv-body">
+      <div class="pv-expand-row">
+        <button class="pv-btn" onclick="pvExpandAll()">Expand all</button>
+        <button class="pv-btn" onclick="pvCollapseAll()">Collapse all</button>
+      </div>
+      <div id="pv-content"></div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+// ─────────────────────────────────────────────────────────────────────────────
+// GOOGLE APPS SCRIPT SETUP
+// ─────────────────────────────────────────────────────────────────────────────
+// 1. Create a Google Sheet with these tabs (exact names matter):
+//    • Pillars   • Tools   • Research   • DSFC   • Slides
+//
+// 2. Column headers for each tab:
+//
+//    Pillars:  n | name | gtt | color | bg | path | rat | src
+//    Tools:    pillar | title | type | desc | mo | lk | lbl
+//    Research: pillar | title | author | tag | url
+//    DSFC:     pillar | title | type
+//    Slides:   cat | lbl | title | body | tag
+//
+//    (path = TRUE/FALSE, type in Tools = s or t, tag in Research = ess or blank)
+//
+// 3. In the Sheet, click Extensions → Apps Script, paste this code, save:
+//
+// function doGet() {
+//   const ss = SpreadsheetApp.getActiveSpreadsheet();
+//   function sheetToObjects(name) {
+//     const s = ss.getSheetByName(name);
+//     const [headers, ...rows] = s.getDataRange().getValues();
+//     return rows.filter(r => r[0] !== '').map(r => {
+//       const obj = {};
+//       headers.forEach((h, i) => obj[h] = r[i]);
+//       return obj;
+//     });
+//   }
+//   const pillarsRaw = sheetToObjects('Pillars');
+//   const toolsRaw   = sheetToObjects('Tools');
+//   const researchRaw= sheetToObjects('Research');
+//   const dsfcRaw    = sheetToObjects('DSFC');
+//   const slides     = sheetToObjects('Slides');
+//   const pillars = pillarsRaw.map(p => ({
+//     n: Number(p.n),
+//     name: p.name,
+//     gtt: p.gtt,
+//     color: p.color,
+//     bg: p.bg,
+//     path: p.path === true || p.path === 'TRUE',
+//     rat: p.rat,
+//     src: p.src,
+//     tools: toolsRaw.filter(t => Number(t.pillar) === Number(p.n)).map(t => ({
+//       title: t.title, type: t.type, desc: t.desc,
+//       mo: t.mo || null, lk: t.lk ? Number(t.lk) : null, lbl: t.lbl
+//     })),
+//     research: researchRaw.filter(r => Number(r.pillar) === Number(p.n)).map(r => ({
+//       ti: r.title, au: r.author, tag: r.tag, url: r.url
+//     })),
+//     dsfc: dsfcRaw.filter(d => Number(d.pillar) === Number(p.n)).map(d => ({
+//       title: d.title, type: d.type
+//     }))
+//   }));
+//   const payload = JSON.stringify({ pillars, slides });
+//   return ContentService.createTextOutput(payload)
+//     .setMimeType(ContentService.MimeType.JSON);
+// }
+//
+// 4. Click Deploy → New deployment → Web app
+//    Execute as: Me
+//    Who has access: Anyone
+//    Click Deploy, copy the URL
+//
+// 5. Paste the URL below, replacing the placeholder:
+// ─────────────────────────────────────────────────────────────────────────────
+
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzDxMFd9JD6sO7U0SsPQnOkERd15aGb27OU5jCrqVCmlqNhOnoR1CID5cCwr1AgAdWxqw/exec';
+
+let PILLARS = [];
+let SLIDES  = [];
+let DATA_LOADED = false;
+
+async function loadData() {
+  // Show loading state
+  document.getElementById('data-loading').style.display = 'flex';
+
+  try {
+    const res = await fetch(APPS_SCRIPT_URL);
+    const data = await res.json();
+    PILLARS = data.pillars || [];
+    SLIDES  = data.slides  || [];
+    DATA_LOADED = true;
+  } catch(e) {
+    console.error('Failed to load data from Google Sheets:', e);
+    document.getElementById('data-error').style.display = 'block';
+    return;
+  }
+
+  document.getElementById('data-loading').style.display = 'none';
+
+  // Boot the app
+  buildPills();
+  buildPGrid();
+  buildCarousel();
+  buildOnboarding();
+  initResources();
+}
+
+// Fallback — used only if APPS_SCRIPT_URL is still placeholder
+const PILLARS=[
+  {n:1,name:'Maximise the opportunity to learn',gtt:'GTT 2.1, 2.2',color:'#1B2A4A',bg:'#EEF1F8',path:false,
+   rat:'The opportunity to learn is the single strongest predictor of student achievement. Time on task, pacing, and eliminating disruption are foundational — before any strategy can work, students need sustained, protected time.',
+   src:'Rosenshine (2012) · Hattie (2009) — Visible Learning',
+   tools:[
+     {title:'Routines and transitions',type:'s',desc:'Consistent lesson-opening routines that maximise time on task from the first minute. Includes do-now tasks, seating, and equipment expectations.',mo:null,lk:null,lbl:'DSFC practice'},
+     {title:'Pace and narration',type:'s',desc:'Narrating the lesson structure so students understand the purpose of each phase and the time available. Reduces cognitive overhead and keeps transitions tight.',mo:null,lk:null,lbl:'DSFC practice'},
+     {title:'Lesson timing template',type:'t',desc:'A planning tool for mapping time across a lesson — ensuring the highest-value activities receive the most protected time.',mo:null,lk:null,lbl:'DSFC practice'},
+   ],
+   research:[{ti:'Visible Learning',au:'John Hattie · 2009',tag:'ess',url:'https://www.visiblelearningmetax.com/'},{ti:'Principles of Instruction',au:'Barak Rosenshine · 2012',tag:'ess',url:'https://www.aft.org/sites/default/files/Rosenshine.pdf'}]},
+  {n:2,name:'Build belonging and promote collaboration',gtt:'GTT 1.1, 1.2',color:'#0D7A6B',bg:'#E0F4F1',path:false,
+   rat:'Students who feel they belong learn more. Belonging directly affects cognitive engagement, willingness to take risks, and persistence through difficulty. Collaborative structures, when well-designed, multiply these effects.',
+   src:'EEF — Collaborative Learning (+5 months, 4 padlocks) · Dweck (2006)',
+   tools:[
+     {title:'Collaborative learning structures',type:'s',desc:'Well-evidenced pair and group tasks — elevated think-pair-share, jigsaw tasks, structured academic controversy.',mo:'+5',lk:4,lbl:'Collaborative learning'},
+     {title:'Classroom climate audit',type:'t',desc:'A brief student-voice instrument for gauging belonging and psychological safety in your classroom. Used termly to track change.',mo:null,lk:null,lbl:'DSFC practice'},
+     {title:'Growth mindset framing',type:'s',desc:'Language and task design that frames challenge as expected and productive rather than a signal of inability.',mo:'+0',lk:2,lbl:'Growth mindset'},
+   ],
+   research:[{ti:'Collaborative Learning',au:'EEF Teaching & Learning Toolkit',tag:'ess',url:'https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/collaborative-learning'},{ti:'Mindset',au:'Carol Dweck · 2006',tag:'',url:'https://www.penguinrandomhouse.com/books/44330/mindset-by-carol-s-dweck-phd/'}]},
+  {n:3,name:'Review learning',gtt:'GTT 4.5',color:'#534AB7',bg:'#EEEDFE',path:true,
+   rat:'Retrieving information from memory is not just a test of learning — it is learning. The act of retrieval strengthens memory traces and surfaces gaps more reliably than re-reading. Spacing retrievals over time produces dramatic long-term retention advantages.',
+   src:'EEF — Metacognition & Self-regulation (+7 months, 5 padlocks) · Rosenshine (2012) · Dunlosky et al. (2013)',
+   tools:[
+     {title:'Low-stakes retrieval starters',type:'s',desc:'Brief, no-consequence retrieval at the start of each lesson. Questions span previous lesson, previous week, and previous term — building in spacing automatically.',mo:'+7',lk:5,lbl:'Metacognition & self-regulation'},
+     {title:'Brain dump',type:'s',desc:'Students write everything they can recall about a topic without notes. The gaps in their dump are the gaps in their schema — surface them before teaching forward.',mo:'+7',lk:5,lbl:'Metacognition & self-regulation'},
+     {title:'Spaced practice planner',type:'t',desc:'A curriculum-level tool for building retrieval points into a scheme of work — ensures key concepts are revisited at spaced intervals rather than only at revision time.',mo:null,lk:null,lbl:'DSFC practice'},
+     {title:'Flashcard protocols',type:'s',desc:'Structured use of retrieval cards with correct spacing conventions. Includes guidance on avoiding the fluency illusion — feeling familiar is not the same as being able to retrieve.',mo:'+7',lk:5,lbl:'Metacognition & self-regulation'},
+   ],
+   research:[{ti:'Metacognition and Self-regulation',au:'EEF Teaching & Learning Toolkit',tag:'ess',url:'https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/metacognition-and-self-regulation'},{ti:'Principles of Instruction',au:'Barak Rosenshine · 2012',tag:'ess',url:'https://www.aft.org/sites/default/files/Rosenshine.pdf'},{ti:'Improving Students\' Learning',au:'Dunlosky et al. · 2013',tag:'',url:'https://journals.sagepub.com/doi/10.1177/1529100612453266'}]},
+  {n:4,name:'Question effectively',gtt:'GTT 4.3',color:'#C0453A',bg:'#FAECEB',path:true,
+   rat:'Most classroom questioning samples a small minority of students and accepts the first correct answer as evidence of class understanding. Effective questioning creates accountability for all, surfaces misconceptions, and extends thinking beyond recall.',
+   src:'EEF — Oral Language (+5 months, 4 padlocks) · Wiliam (2011) · Lemov (2015)',
+   tools:[
+     {title:'Pose → Pause → Pounce → Bounce',type:'s',desc:'Pose the question, allow thinking time, select a student, then bounce to a second to agree, disagree, or extend. Keeps all minds in the room throughout.',mo:'+5',lk:4,lbl:'Oral language'},
+     {title:'Cold call — no opt out',type:'s',desc:'No hands up. Every student prepares an answer. If a student cannot answer, give it to a peer then return. The expectation of participation keeps all minds engaged.',mo:'+5',lk:4,lbl:'Oral language'},
+     {title:'Stretch it',type:'s',desc:'Reward right answers with a follow-up. How did you get there? What\'s another way? What\'s the evidence? The sequence does not end with a correct answer.',mo:'+5',lk:4,lbl:'Oral language'},
+     {title:'Diagnostic questioning',type:'s',desc:'Offer four possible answers and ask students to identify the correct one and explain precisely why each wrong answer is wrong — not just which is right.',mo:'+5',lk:4,lbl:'Oral language'},
+   ],
+   research:[{ti:'Oral Language Interventions',au:'EEF Teaching & Learning Toolkit',tag:'ess',url:'https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/oral-language-interventions'},{ti:'Embedded Formative Assessment',au:'Dylan Wiliam · 2011',tag:'ess',url:'https://www.solutiontree.com/embedded-formative-assessment-second-edition.html'},{ti:'Teach Like a Champion 2.0',au:'Doug Lemov · 2015',tag:'',url:'https://teachlikeachampion.org/books/teach-like-a-champion-3-0/'}]},
+  {n:5,name:'Promote high standards of oracy',gtt:'GTT 4.3, 1.3',color:'#0D7A6B',bg:'#E0F4F1',path:false,
+   rat:'Talk is a primary vehicle for learning, not a break from it. When students articulate their thinking aloud — to a partner, to the class, or to themselves — they consolidate, connect, and expose gaps. The quality of classroom talk is directly linked to the quality of classroom thinking.',
+   src:'EEF — Oral Language (+5 months, 4 padlocks) · Alexander (2017) — Dialogic Teaching · Mercer (2000)',
+   tools:[
+     {title:'Structured academic controversy',type:'s',desc:'Students argue a position, then switch sides. Separates argument from identity and forces engagement with the strongest version of the opposing view.',mo:'+5',lk:4,lbl:'Oral language'},
+     {title:'Sentence stems and connectives',type:'t',desc:'Posted stems that require students to connect, extend, challenge, or qualify — not just state. "I want to build on what X said…" "I would challenge that because…"',mo:'+5',lk:4,lbl:'Oral language'},
+     {title:'Volleyball not tennis',type:'s',desc:'Redirect answers student-to-student rather than always back through the teacher. Your role is to manage the meta-level, not carry the ball in every exchange.',mo:'+5',lk:4,lbl:'Oral language'},
+   ],
+   research:[{ti:'Oral Language Interventions',au:'EEF Teaching & Learning Toolkit',tag:'ess',url:'https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/oral-language-interventions'},{ti:'Dialogic Teaching',au:'Robin Alexander · 2017',tag:'',url:'https://www.robinalexander.org.uk/dialogic-teaching/'}]},
+  {n:6,name:'Expertly planned',gtt:'GTT 3.1, 3.2',color:'#8A5010',bg:'#FDF0DE',path:false,
+   rat:'Planning is not paperwork — it is the cognitive work that determines whether a lesson activates prior knowledge in the right sequence, manages load appropriately, and allocates time to the activities most likely to produce learning.',
+   src:'EEF — Metacognition & Self-regulation (+7 months) · Kirschner, Sweller & Clark (2006) · Willingham (2009)',
+   tools:[
+     {title:'Knowledge organiser design',type:'t',desc:'Guidance on what belongs on a knowledge organiser and what does not. The organiser is a retrieval tool, not a summary document.',mo:null,lk:null,lbl:'DSFC practice'},
+     {title:'Curriculum mapping for spacing',type:'t',desc:'A planning tool that maps when each key concept is first taught, revisited, and assessed — building spacing into the curriculum rather than leaving it to chance.',mo:null,lk:null,lbl:'DSFC practice'},
+     {title:'Backward design planner',type:'t',desc:'Start from the assessment, work back to the lesson. What do students need to be able to do? What do they need to know? What\'s the sequence that builds this?',mo:null,lk:null,lbl:'DSFC practice'},
+   ],
+   research:[{ti:'Why Don\'t Students Like School?',au:'Daniel Willingham · 2009',tag:'ess',url:'https://www.wiley.com/en-gb/Why+Don%27t+Students+Like+School%3F%2C+2nd+Edition-p-9781119715962'},{ti:'Why Minimal Guidance Doesn\'t Work',au:'Kirschner, Sweller & Clark · 2006',tag:'',url:'https://www.tandfonline.com/doi/abs/10.1207/s15326985ep4102_1'}]},
+  {n:7,name:'Chunk',gtt:'GTT 4.1, 4.2',color:'#C8973A',bg:'#FDF3E3',path:false,
+   rat:'Working memory is severely limited. When new material arrives faster than it can be processed, students experience cognitive overload — they do not learn, they merely endure the lesson. Chunking is the deliberate management of information load.',
+   src:'EEF — Metacognition & Self-regulation (+7 months) · Sweller (1988) — Cognitive Load Theory',
+   tools:[
+     {title:'Worked examples first',type:'s',desc:'Before students attempt problems independently, provide fully worked examples. The example reduces extraneous load so attention can focus on the key structure.',mo:'+7',lk:5,lbl:'Metacognition & self-regulation'},
+     {title:'Graphic organisers',type:'t',desc:'Visual frameworks that structure new information spatially — reducing the mental effort needed to organise content while learning it.',mo:'+4',lk:4,lbl:'Graphic organiser'},
+     {title:'Pause, narrate, check',type:'s',desc:'After each chunk, pause explicitly. Narrate what has just happened. Check understanding before moving forward. Resist the urge to press on.',mo:null,lk:null,lbl:'DSFC practice'},
+   ],
+   research:[{ti:'Cognitive Load Theory',au:'John Sweller · 1988',tag:'ess',url:'https://link.springer.com/article/10.1007/BF00117045'},{ti:'Metacognition and Self-regulation',au:'EEF Teaching & Learning Toolkit',tag:'ess',url:'https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/metacognition-and-self-regulation'}]},
+  {n:8,name:'Scaffold and model',gtt:'GTT 4.2, 4.4',color:'#993556',bg:'#FBEAF0',path:false,
+   rat:'Scaffolding is not simplification — it is temporary support that enables students to operate at a level of complexity beyond what they could manage independently, then fades as competence grows. Modelling makes expert thinking visible.',
+   src:'EEF — Metacognition & Self-regulation (+7 months) · Vygotsky (1978) — ZPD · Rosenshine (2012)',
+   tools:[
+     {title:'I Do → We Do → You Do',type:'s',desc:'Model a full response live, then co-construct one together with the class, then release to independence. Do not skip the middle step — it is where most learning happens.',mo:'+7',lk:5,lbl:'Metacognition & self-regulation'},
+     {title:'Think aloud modelling',type:'s',desc:'Narrate your own decision-making live — including false starts, corrections, and moments of uncertainty. Model the process, not just the polished product.',mo:'+7',lk:5,lbl:'Metacognition & self-regulation'},
+     {title:'Scaffold removal protocol',type:'t',desc:'A structured approach to gradually reducing support — from full model to partial prompt to independent attempt. Includes checkpoints for deciding when to fade.',mo:null,lk:null,lbl:'DSFC practice'},
+   ],
+   research:[{ti:'Metacognition and Self-regulation',au:'EEF Teaching & Learning Toolkit',tag:'ess',url:'https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/metacognition-and-self-regulation'},{ti:'Principles of Instruction',au:'Barak Rosenshine · 2012',tag:'ess',url:'https://www.aft.org/sites/default/files/Rosenshine.pdf'}]},
+  {n:9,name:'Check for understanding',gtt:'GTT 4.3',color:'#1B2A4A',bg:'#EEF1F8',path:true,
+   rat:'Checking for understanding is the mechanism by which teachers diagnose the gap between what they have taught and what students have actually learned. Without it, teachers operate on assumptions — and those assumptions are systematically over-optimistic.',
+   src:'EEF — Feedback (+6 months, 5 padlocks) · Wiliam (2011) · Rosenshine (2012)',
+   tools:[
+     {title:'Hinge questions',type:'s',desc:'A single diagnostic question at the pivot point of a lesson. Wrong answers reveal the exact misconception, not just that a student is stuck — enabling precise, responsive teaching.',mo:'+6',lk:5,lbl:'Feedback'},
+     {title:'Mini whiteboards',type:'s',desc:'All students respond simultaneously. Eliminates sampling bias — the teacher sees the whole class, not just the hands that go up. Pairs with cold call for maximum coverage.',mo:'+6',lk:5,lbl:'Feedback'},
+     {title:'Exit ticket bank',type:'t',desc:'A library of ready-made exit tickets organised by subject area. Designed as lesson-close diagnostics, not accountability checks — the data should change the start of the next lesson.',mo:'+6',lk:5,lbl:'Feedback'},
+     {title:'CFU observation focus sheet',type:'t',desc:'A one-page guide for observing CFU in a colleague\'s lesson — what to look for, scripted evidence prompts, and coaching questions for debrief.',mo:null,lk:null,lbl:'DSFC practice'},
+   ],
+   research:[{ti:'Feedback',au:'EEF Teaching & Learning Toolkit',tag:'ess',url:'https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/feedback'},{ti:'Embedded Formative Assessment',au:'Dylan Wiliam · 2011',tag:'ess',url:'https://www.solutiontree.com/embedded-formative-assessment-second-edition.html'},{ti:'Principles of Instruction',au:'Barak Rosenshine · 2012',tag:'ess',url:'https://www.aft.org/sites/default/files/Rosenshine.pdf'}]},
+  {n:10,name:'Teach with AI',gtt:'GTT 4.2, 4.5, 4.6',color:'#1D6B8A',bg:'#E3F4FA',path:false,
+   rat:'AI tools are already in the hands of students. The question is not whether AI is used in learning but whether it is used well. Teachers who understand what AI can and cannot do are better placed to design tasks that develop genuine thinking, spot AI-generated work, and use AI to reduce their own workload without eroding professional judgement.',
+   src:'EEF — Metacognition & Self-regulation (+7 months) · Selwyn (2023) · Mollick & Mollick (2023) — Assigning AI',
+   tools:[
+     {title:'AI task design audit',type:'t',desc:'A framework for reviewing whether a task can be completed trivially by AI — and if so, how to redesign it so it requires genuinely human thinking: dialogue, judgement, lived experience, or real-time demonstration.',mo:null,lk:null,lbl:'DSFC practice'},
+     {title:'Prompt literacy for students',type:'s',desc:'Teaching students to use AI tools critically rather than passively — evaluating outputs, identifying hallucinations, and understanding what AI does with their input.',mo:null,lk:null,lbl:'DSFC practice'},
+     {title:'AI detection signals',type:'s',desc:'Classroom-tested signals for identifying likely AI-generated work — not as a gotcha exercise but as a starting point for a professional conversation about academic integrity and genuine learning.',mo:null,lk:null,lbl:'DSFC practice'},
+     {title:'AI for teacher workload',type:'s',desc:'Practical applications for reducing marking turnaround, generating differentiated resources, building revision materials, and drafting communications — without replacing professional judgement.',mo:null,lk:null,lbl:'DSFC practice'},
+     {title:'Epistemic humility framing',type:'s',desc:'A classroom approach that models honest uncertainty about AI. AI is often wrong, always confident, and never accountable. Pairing AI outputs with student verification tasks builds critical thinking alongside subject knowledge.',mo:'+7',lk:5,lbl:'Metacognition & self-regulation'},
+   ],
+   research:[
+     {ti:'AI and the Future of Education',au:'Neil Selwyn · 2023',tag:'ess',url:'https://www.wiley.com/en-gb/AI+and+the+Future+of+Education-p-9781119871095'},
+     {ti:'Assigning AI: Seven Approaches',au:'Mollick & Mollick · 2023',tag:'ess',url:'https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4475995'},
+     {ti:'Metacognition and Self-regulation',au:'EEF Teaching & Learning Toolkit',tag:'ess',url:'https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit/metacognition-and-self-regulation'},
+     {ti:'A Pedagogy of AI Literacy',au:'Long & Magerko · 2020',tag:'',url:'https://dl.acm.org/doi/10.1145/3313831.3376727'},
+   ]},
+];
+
+const SLIDES=[
+  {cat:'q',lbl:'Questioning',title:'Pose → Pause → Pounce → Bounce',body:'Pose the question, allow thinking time, select a student, then bounce to a second to agree, disagree, or extend.',tag:"If you're doing the talking, they're not doing the thinking."},
+  {cat:'q',lbl:'Questioning',title:'Cold call',body:'No hands up. Every student prepares an answer. Select anyone. The expectation of participation keeps all minds in the room.',tag:"If you're doing the talking, they're not doing the thinking."},
+  {cat:'q',lbl:'Questioning',title:'No opt out',body:"If a student cannot answer, give the answer to a peer, then return to the original student so they still retrieve and state it aloud.",tag:"If you're doing the talking, they're not doing the thinking."},
+  {cat:'q',lbl:'Questioning',title:'Stretch it',body:"Reward right answers with a follow-up. How did you get there? What is another way? What is the evidence? The sequence does not end with a correct answer.",tag:"If you're doing the talking, they're not doing the thinking."},
+  {cat:'q',lbl:'Questioning',title:'Diagnostic questioning',body:"Offer four possible answers and ask students to identify the correct one and explain precisely why each wrong answer is wrong.",tag:"If you're doing the talking, they're not doing the thinking."},
+  {cat:'q',lbl:'Questioning',title:'Statements not questions',body:"Offer students a series of statements and ask them to respond with an evidence-based point of view. Agreement or disagreement both require justification.",tag:"If you're doing the talking, they're not doing the thinking."},
+  {cat:'d',lbl:'Discussion',title:'Agree or disagree',body:'"Tyler says X. Do you agree, Sophie? Defend your position." Students must take a stand and justify it, not just echo the previous answer.',tag:"The best explanation in the room isn't always yours."},
+  {cat:'d',lbl:'Discussion',title:'Think → Pair → Share — elevated',body:"Make it harder. Prompt the paired talk to include evaluation, not just description. Require the shared response to be in exam-style language.",tag:"The best explanation in the room isn't always yours."},
+  {cat:'d',lbl:'Discussion',title:'Add on',body:"Ask another student to extend or develop the idea of the previous student rather than the teacher performing this role. The room builds the thinking.",tag:"The best explanation in the room isn't always yours."},
+  {cat:'d',lbl:'Discussion',title:"Devil's advocate",body:"Assign a student to argue the opposing view regardless of their own opinion. Separates argument from personal identity.",tag:"The best explanation in the room isn't always yours."},
+  {cat:'d',lbl:'Discussion',title:'Volleyball, not tennis',body:"Redirect answers student to student, not always back to you. Your job is to manage the meta, not carry the ball.",tag:"The best explanation in the room isn't always yours."},
+  {cat:'d',lbl:'Discussion',title:'Sentence starters',body:'Post and enforce connective stems. "I want to build on what X said…" "I would challenge that because…" Structure the talk before expecting quality.',tag:"The best explanation in the room isn't always yours."},
+  {cat:'m',lbl:'Metacognition',title:'Confidence ratings',body:"Students rate 1 to 5, then pair a 4 or 5 with a 2 or 3. The act of explaining consolidates the explainer's understanding as much as the listener's.",tag:"Make the thinking visible — to them, not just to you."},
+  {cat:'m',lbl:'Metacognition',title:'Think aloud',body:"Narrate your own decision-making live, including the false starts, the corrections, and the moments of uncertainty. Model the process, not just the product.",tag:"Make the thinking visible — to them, not just to you."},
+  {cat:'m',lbl:'Metacognition',title:'Knowledge gap audit',body:'Ask "what would you need to know to answer this better?" Make gaps visible before they become entrenched misconceptions.',tag:"Make the thinking visible — to them, not just to you."},
+  {cat:'m',lbl:'Metacognition',title:'Self-explain',body:"Students explain a concept back in their own words without notes. The gaps in their explanation reveal the gaps in their understanding.",tag:"Make the thinking visible — to them, not just to you."},
+  {cat:'m',lbl:'Metacognition',title:'Exit ticket',body:"Before they leave, students write the one thing they are least certain about. Use it to open the next lesson, not file it away.",tag:"Make the thinking visible — to them, not just to you."},
+  {cat:'m',lbl:'Metacognition',title:'DIRT',body:"Dedicated Improvement and Reflection Time: students act on written feedback in silence before any new content begins. Feedback only works if they do something with it.",tag:"Make the thinking visible — to them, not just to you."},
+  {cat:'r',lbl:'Response quality',title:'Two responses, one upgrade',body:"Show answers at two different grade boundaries. Ask students to identify the single most important change. Not a list. Just one.",tag:"The gap between good and great is always specific."},
+  {cat:'r',lbl:'Response quality',title:'Everybody writes',body:"All students write before anyone speaks. Discussion built on thought, not instinct. No hands until pens are down.",tag:"The gap between good and great is always specific."},
+  {cat:'r',lbl:'Response quality',title:'Predict the examiner',body:"Before writing, ask what the examiner will not want to see. Naming the traps is harder than avoiding them.",tag:"The gap between good and great is always specific."},
+  {cat:'r',lbl:'Response quality',title:'I Do → We Do → You Do',body:"Model a full response live, then co-construct one together with the class, then release to independence. Do not skip the middle step.",tag:"The gap between good and great is always specific."},
+  {cat:'r',lbl:'Response quality',title:'Live modelling',body:"Write a response in real time on the board or visualiser. Narrate every decision, including the crossings-out. The mess is the lesson.",tag:"The gap between good and great is always specific."},
+  {cat:'r',lbl:'Response quality',title:'Success criteria co-construction',body:"Ask students to generate the mark scheme before they attempt the question. If they cannot describe success, they cannot reach it.",tag:"The gap between good and great is always specific."},
+  {cat:'n',lbl:'Non-examples & diagnosis',title:'Flawed answer',body:"Offer an incomplete or incorrect response. Can students find the problem, fix it, and then improve the fix? Each step demands higher thinking than the last.",tag:"Finding the flaw is harder than writing the answer."},
+  {cat:'n',lbl:'Non-examples & diagnosis',title:"Explain why it's wrong",body:"Show a common misconception and ask students to explain precisely why it is wrong, not just that it is. Diagnosis, not identification.",tag:"Finding the flaw is harder than writing the answer."},
+  {cat:'n',lbl:'Non-examples & diagnosis',title:'Mark the response',body:"Give students a mark scheme and an anonymised answer. They mark it and justify every mark awarded or withheld, out loud.",tag:"Finding the flaw is harder than writing the answer."},
+  {cat:'n',lbl:'Non-examples & diagnosis',title:'Spot the gap',body:"A response that answers part of the question well but misses a key element. Can students identify exactly what is absent and why it matters?",tag:"Finding the flaw is harder than writing the answer."},
+  {cat:'n',lbl:'Non-examples & diagnosis',title:'The almost-right answer',body:"A response that earns partial credit. Ask students to identify the one phrase or idea that would take it to full marks.",tag:"Finding the flaw is harder than writing the answer."},
+  {cat:'n',lbl:'Non-examples & diagnosis',title:'Teach it back',body:"Students explain a concept as if to someone who knows nothing. The gaps in their explanation are the gaps in their understanding.",tag:"Finding the flaw is harder than writing the answer."},
+];
+
+// End of fallback hardcoded data
+// ─────────────────────────────────────────────────────────────────────────────
+
+const CAT_CLASS={q:'cat-q',d:'cat-d',m:'cat-m',r:'cat-r',n:'cat-n'};
+let cur=0;
+
+function getWeek(){
+  const now=new Date();
+  const yr=now.getMonth()<8?now.getFullYear()-1:now.getFullYear();
+  const start=new Date(yr,8,1);
+  return Math.max(1,Math.min(30,Math.floor((now-start)/(7*864e5))+1));
+}
+
+function locks(n,filled){
+  if(filled===null)return'';
+  let h='<div class="eef-locks">';
+  for(let i=0;i<5;i++)h+=`<div class="lk${i<filled?' lk-on':''}"></div>`;
+  return h+'</div>';
+}
+
+function buildCarousel(){
+  const wk=getWeek();
+  document.getElementById('wk-label').textContent='Week '+wk;
+  cur=(wk-1)%SLIDES.length;
+  // Get related slides (same category, different index)
+  const getRelated = (idx) => SLIDES
+    .filter((s,i) => s.cat === SLIDES[idx].cat && i !== idx)
+    .slice(0,3);
+
+  document.getElementById('carousel').innerHTML=SLIDES.map((s,i)=>{
+    const related = getRelated(i);
+    const relHtml = related.map(r =>
+      `<div class="c-rel-item"><div class="c-rel-title">${r.title}</div><div class="c-rel-cat">${r.lbl}</div></div>`
+    ).join('');
+    return `<div class="c-card${i===cur?' active':''}" id="cc${i}">
+      <div class="c-card-inner">
+        <div>
+          <span class="c-cat ${CAT_CLASS[s.cat]}">${s.lbl}</span>
+          <div class="c-consider">Consider</div>
+          <div class="c-title">${s.title}</div>
+          <div class="c-body">${s.body}</div>
+          <div class="c-tagline">${s.tag}</div>
+        </div>
+        <div class="c-card-right">
+          <div class="c-related-label">More from this category</div>
+          ${relHtml || '<div style="font-size:12px;color:rgba(255,255,255,0.3)">No other entries in this category</div>'}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  renderDots();updateCtr();
+}
+
+const CATS=['q','d','m','r','n'];
+function renderDots(){
+  const cc=SLIDES[cur].cat;
+  document.getElementById('cdots').innerHTML=CATS.map(c=>
+    `<div class="c-dot${c===cc?' active':''}" onclick="jumpCat('${c}')"></div>`
+  ).join('');
+}
+
+function jumpCat(c){const i=SLIDES.findIndex(s=>s.cat===c);if(i>=0){cur=i;refresh();}}
+function refresh(){document.querySelectorAll('.c-card').forEach((el,i)=>el.classList.toggle('active',i===cur));renderDots();updateCtr();}
+function next(){cur=(cur+1)%SLIDES.length;refresh();}
+function prev(){cur=(cur-1+SLIDES.length)%SLIDES.length;refresh();}
+function updateCtr(){document.getElementById('cctr').textContent=(cur+1)+' / '+SLIDES.length;}
+
+function buildPills(){
+  document.getElementById('pills').innerHTML=PILLARS.map((p,i)=>
+    `<div class="pillar-pill" onclick="showPD(${i})"><div class="p-dot" style="background:${p.color}"></div>${p.name}</div>`
+  ).join('');
+}
+
+function buildPGrid(){
+  document.getElementById('pgrid').innerHTML=PILLARS.map((p,i)=>
+    `<div class="p-card" onclick="showPD(${i})">
+      <div class="p-num" style="background:${p.bg};color:${p.color}">${p.n}</div>
+      <div>
+        <div class="p-name">${p.name}</div>
+        <div class="p-gtt">${p.gtt}</div>
+        <div class="p-tags">
+          ${p.path?'<span class="ptag ptag-path">CPD pathway</span>':''}
+          <span class="ptag">${p.tools.length} tools</span>
+        </div>
+      </div>
+    </div>`
+  ).join('');
+}
+
+function showPD(i){
+  const p=PILLARS[i];
+  const tHtml=p.tools.map(t=>`
+    <div class="t-card">
+      <div class="t-top">
+        <span class="t-type ${t.type==='s'?'tt-s':'tt-t'}">${t.type==='s'?'Strategy':'Template'}</span>
+        <div class="eef-wrap">
+          ${t.mo?`<span class="eef-mo">${t.mo}</span>${locks(5,t.lk)}`:`<span class="t-eef">${t.lbl}</span>`}
+        </div>
+      </div>
+      <div class="t-title">${t.title}</div>
+      <div class="t-desc">${t.desc}</div>
+      <div class="t-foot">
+        <span class="t-link">Open →</span>
+        ${t.mo?'<a class="t-eef" href="https://educationendowmentfoundation.org.uk/education-evidence/teaching-learning-toolkit" target="_blank">EEF toolkit ↗</a>':''}
+      </div>
+    </div>`).join('');
+  const rHtml=p.research.map(r=>{
+    const oc = r.url ? `onclick="window.open('${r.url}','_blank')"` : '';
+    const cur = r.url ? 'cursor:pointer' : '';
+    return `<div class="r-item" style="${cur}" ${oc}>
+      <div class="r-ti">${r.ti}</div><div class="r-au">${r.au}</div>
+      <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+        <span class="r-tag${r.tag==='ess'?' ess':''}">${r.tag==='ess'?'Essential reading':'Supplementary'}</span>
+        ${r.url ? '<span style="font-size:10px;color:var(--navy);font-weight:500">Open ↗</span>' : ''}
+      </div>
+    </div>`;
+  }).join('');
+  const pwHtml=p.path?`
+    <div class="pw-strip">
+      <div class="pw-top"><div class="pw-ico">🗺️</div><div><div class="pw-title">${p.name} — CPD pathway</div><div class="pw-sub">Active this year · Session resources available</div></div></div>
+      <div class="pw-sessions">
+        <div class="pw-s"><div class="pw-dot done">✓</div><div class="pw-lbl">Ignition session</div></div>
+        <div class="pw-s"><div class="pw-dot done">✓</div><div class="pw-lbl">Deep dive</div></div>
+        <div class="pw-s"><div class="pw-dot cur">→</div><div class="pw-lbl">Practice & refine</div></div>
+        <div class="pw-s"><div class="pw-dot">4</div><div class="pw-lbl">Evidence & adapt</div></div>
+        <div class="pw-s"><div class="pw-dot">5</div><div class="pw-lbl">Embed & sustain</div></div>
+      </div>
+    </div>`:'';
+  document.getElementById('pd-content').innerHTML=`
+    <div class="pd-hdr"><div class="pd-hdr-inner">
+      <div class="bc"><span onclick="go('home')">Home</span><span>›</span><span onclick="go('pillars')">Policy pillars</span><span>›</span><span style="color:var(--text)">Pillar ${p.n}</span></div>
+      <div class="pd-top">
+        <div class="pd-num" style="background:${p.bg};color:${p.color}">${p.n}</div>
+        <div style="flex:1"><div class="pd-name">${p.name}</div><div class="pd-gtt">Links to ${p.gtt}</div></div>
+        ${p.path?'<div class="path-badge">🗺️ CPD pathway available</div>':''}
+      </div>
+    </div></div>
+    <div class="rat-box">
+      <div class="rat-lbl">Why this matters</div>
+      <div class="rat-txt">${p.rat}</div>
+      <div class="rat-src">📚 ${p.src}</div>
+    </div>
+    ${pwHtml}
+    <div class="tools-wrap">
+      <div class="tools-hdr">
+        <div class="sec-label" style="margin:0">Classroom tools</div>
+        <div class="f-chips"><div class="fchip on">All</div><div class="fchip">Strategy</div><div class="fchip">Template</div></div>
+      </div>
+      <div class="tools-grid">${tHtml}</div>
+    </div>
+    <div class="two-panels">
+      <div class="panel"><div class="panel-title">📚 Key research</div>${rHtml}</div>
+      <div class="panel">
+        <div class="panel-title">🏫 DSFC resources</div>
+        ${(p.dsfc && p.dsfc.length ? p.dsfc : [
+          {title:'Living the Policy — Pillar '+p.n, type:'PDF · DSFC policy document'},
+          {title:'Pitching It Up — related strategies', type:'PPTX · Screensaver deck'},
+          {title:'Observation focus sheet — Pillar '+p.n, type:'Word doc · Learning walk tool'}
+        ]).map(d=>`<div class="d-item"><div class="d-ico">📄</div><div><div class="d-name">${d.title}</div><div class="d-type">${d.type}</div></div><span style="font-size:12px;color:var(--text-faint)">↓</span></div>`).join('')}
+      </div>
+    </div>`;
+  go('pd');
+}
+
+function buildOnboarding(){
+  const steps=[
+    {n:1,title:'Read the T&L Policy',desc:'The nine pillars are the DSFC framework for great teaching. Read the policy first — everything else on this site connects back to it.',cta:'Download policy PDF'},
+    {n:2,title:'Explore Living the Policy',desc:'For each pillar, the Living the Policy document gives you the classroom-level detail — what it looks like, why it matters, and what to try.',cta:'Go to pillars hub'},
+    {n:3,title:'Understand the Great Teaching Toolkit',desc:'The GTT gives you a research-grounded framework for thinking about your practice. Familiarise yourself with the dimensions before your first self-reflection.',cta:'Go to GTT'},
+    {n:4,title:'Read the observation guidance',desc:'DSFC uses a developmental peer observation model. Understanding the framework early means you get more from being observed and observing others.',cta:'Download observation guide'},
+    {n:5,title:'Join a CPD pathway strand',desc:'Each term, staff choose a pathway strand to develop. Speak to your line manager about which strand is the right fit for your current focus.',cta:'Browse pathways'},
+    {n:6,title:'Dip into the Thinking Space',desc:"The Thinking Space is where DSFC colleagues write honestly about what they've tried, what worked, and what didn't. Start here to understand the culture.",cta:'Open Thinking Space'},
+  ];
+  document.getElementById('ob-steps').innerHTML=steps.map(s=>`
+    <div style="display:flex;align-items:flex-start;gap:16px;padding:16px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg)">
+      <div style="width:36px;height:36px;border-radius:50%;background:var(--navy);color:white;display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:16px;flex-shrink:0">${s.n}</div>
+      <div style="flex:1">
+        <div style="font-size:14px;font-weight:500;color:var(--text);margin-bottom:4px">${s.title}</div>
+        <div style="font-size:12px;color:var(--text-muted);line-height:1.5;margin-bottom:10px">${s.desc}</div>
+        <span style="font-size:11px;font-weight:500;color:var(--navy);cursor:pointer">${s.cta} →</span>
+      </div>
+    </div>`).join('');
+}
+
+
+// ── RESOURCES PAGE ───────────────────────────────────────────────────────────
+let resView = 'az';
+let resQuery = '';
+let resFilters = {tool:true, research:true, dsfc:true, session:true};
+
+// Build flat resource list from PILLARS data
+function buildResourceList() {
+  const items = [];
+  PILLARS.forEach(p => {
+    // Tools
+    p.tools.forEach(t => {
+      items.push({
+        title: t.title,
+        type: 'tool',
+        subtype: t.type === 's' ? 'Strategy' : 'Template',
+        pillar: p.n,
+        pillarName: p.name,
+        pillarColor: p.color,
+        pillarBg: p.bg,
+        eef_mo: t.mo,
+        eef_lk: t.lk,
+        eef_lbl: t.lbl,
+        desc: t.desc,
+      });
+    });
+    // Research
+    p.research.forEach(r => {
+      items.push({
+        title: r.ti,
+        type: 'research',
+        subtype: r.au,
+        pillar: p.n,
+        pillarName: p.name,
+        pillarColor: p.color,
+        pillarBg: p.bg,
+        essential: r.tag === 'ess',
+        eef_mo: null, eef_lk: null,
+      });
+    });
+    // DSFC resources — use dynamic data if available, else fallback to defaults
+    const dsfcItems = (p.dsfc && p.dsfc.length) ? p.dsfc.map(d => d.title) :
+      ['Living the Policy — Pillar '+p.n, 'Pitching It Up — related strategies', 'Observation focus sheet — Pillar '+p.n];
+    dsfcItems.forEach(name => {
+      items.push({
+        title: name,
+        type: 'dsfc',
+        subtype: 'DSFC resource',
+        pillar: p.n,
+        pillarName: p.name,
+        pillarColor: p.color,
+        pillarBg: p.bg,
+        eef_mo: null, eef_lk: null,
+      });
+    });
+    // Session materials (for pillars with pathways)
+    if (p.path) {
+      items.push({
+        title: p.name + ' pathway — session materials',
+        type: 'session',
+        subtype: 'CPD session',
+        pillar: p.n,
+        pillarName: p.name,
+        pillarColor: p.color,
+        pillarBg: p.bg,
+        eef_mo: null, eef_lk: null,
+      });
+    }
+  });
+  return items;
+}
+
+function getFilteredItems() {
+  const all = buildResourceList();
+  return all.filter(item => {
+    if (!resFilters[item.type]) return false;
+    if (!resQuery) return true;
+    const q = resQuery.toLowerCase();
+    return item.title.toLowerCase().includes(q) ||
+           item.pillarName.toLowerCase().includes(q) ||
+           (item.subtype && item.subtype.toLowerCase().includes(q));
+  });
+}
+
+function miniLocks(mo, lk) {
+  if (!mo) return '';
+  let h = '<div class="eef-i"><span class="eef-m">' + mo + '</span><div class="lkr">';
+  for (let i=0;i<5;i++) h += '<div class="lki' + (i<lk?' on':'') + '"></div>';
+  return h + '</div></div>';
+}
+
+function typeStyle(type) {
+  if (type==='tool') return 'background:var(--green-light);color:var(--green)';
+  if (type==='research') return 'background:var(--navy-light);color:var(--navy)';
+  if (type==='dsfc') return 'background:var(--purple-light);color:var(--purple)';
+  if (type==='session') return 'background:var(--amber-light);color:var(--amber)';
+  return '';
+}
+function typeBorder(type) {
+  if (type==='tool') return 'border:0.5px solid #C0DD97';
+  if (type==='research') return 'border:0.5px solid #B5D4F4';
+  if (type==='dsfc') return 'border:0.5px solid #AFA9EC';
+  if (type==='session') return 'border:0.5px solid #FAC775';
+  return '';
+}
+function typeLabel(item) {
+  if (item.type==='tool') return item.subtype;
+  if (item.type==='research') return 'Research';
+  if (item.type==='dsfc') return 'DSFC';
+  if (item.type==='session') return 'Session';
+  return '';
+}
+
+function buildAZView() {
+  const items = getFilteredItems();
+  // Update stats
+  const all = buildResourceList();
+  document.getElementById('rs-tools').textContent = all.filter(i=>i.type==='tool').length;
+  document.getElementById('rs-research').textContent = all.filter(i=>i.type==='research').length;
+  document.getElementById('rs-dsfc').textContent = all.filter(i=>i.type==='dsfc').length;
+  document.getElementById('rs-session').textContent = all.filter(i=>i.type==='session').length;
+
+  // Group by first letter
+  const groups = {};
+  items.forEach(item => {
+    const letter = item.title[0].toUpperCase();
+    if (!groups[letter]) groups[letter] = [];
+    groups[letter].push(item);
+  });
+  const letters = Object.keys(groups).sort();
+
+  // Jump bar — all A-Z letters
+  const alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  document.getElementById('az-jump').innerHTML = alpha.map(l =>
+    `<div class="ajbtn${groups[l]?' has':''}" onclick="${groups[l]?'document.getElementById(\'azg-'+l+'\').scrollIntoView({behavior:\'smooth\'})':''}">${l}</div>`
+  ).join('');
+
+  // Content
+  document.getElementById('az-content').innerHTML = letters.map(letter => {
+    const grpItems = groups[letter];
+    return `<div class="az-group" id="azg-${letter}">
+      <div class="az-letter-hdr">${letter} <span class="az-lcount">${grpItems.length} resource${grpItems.length!==1?'s':''}</span></div>
+      <div class="az-items">${grpItems.map(item => `
+        <div class="az-item">
+          <div class="az-ico" style="background:${item.pillarBg};color:${item.pillarColor}">
+            ${item.type==='tool'?'🔧':item.type==='research'?'📖':item.type==='session'?'📋':'🏫'}
+          </div>
+          <div class="az-body-col">
+            <div class="az-title">${item.title}</div>
+            <div class="az-meta">
+              <span>${item.subtype}</span>
+              <span style="color:var(--border-strong)">·</span>
+              <span>Pillar ${item.pillar} — ${item.pillarName}</span>
+            </div>
+          </div>
+          <div class="az-right">
+            ${item.eef_mo ? miniLocks(item.eef_mo, item.eef_lk) : ''}
+            ${item.essential ? '<span class="txs" style="background:var(--gold-light);color:var(--amber);border:0.5px solid #E8C87A">Essential</span>' : ''}
+            <span class="txs" style="${typeStyle(item.type)};${typeBorder(item.type)}">${typeLabel(item)}</span>
+            ${item.type==='dsfc'||item.type==='session' ? '<span style="font-size:12px;color:var(--text-faint)">↓</span>' : ''}
+          </div>
+        </div>`).join('')}
+      </div>
+    </div>`;
+  }).join('') || '<div style="padding:40px;text-align:center;color:var(--text-muted);font-size:13px">No resources match your search.</div>';
+
+  document.getElementById('res-count').textContent =
+    resQuery ? `${items.length} result${items.length!==1?'s':''} for "${resQuery}"` : `Showing all ${items.length} resources`;
+}
+
+function buildPillarView() {
+  document.getElementById('pv-content').innerHTML = PILLARS.map(p => {
+    const tools = p.tools;
+    const research = p.research;
+    const dsfcItems = ['Living the Policy — Pillar '+p.n, 'Pitching It Up — related strategies', 'Observation focus sheet — Pillar '+p.n];
+    const totalCount = tools.length + research.length + dsfcItems.length + (p.path ? 1 : 0);
+
+    const toolRows = tools.map(t => `
+      <div class="pv-row">
+        <div class="pv-row-ico" style="background:var(--green-light);color:var(--green)">🔧</div>
+        <div style="flex:1;min-width:0">
+          <div class="pv-row-title">${t.title}</div>
+          <div class="pv-row-meta">${t.type==='s'?'Strategy':'Template'} · Pillar ${p.n}</div>
+        </div>
+        <div class="pv-row-right">
+          ${t.mo ? miniLocks(t.mo, t.lk) : `<span style="font-size:10px;color:var(--text-faint)">${t.lbl}</span>`}
+        </div>
+      </div>`).join('');
+
+    const resRows = research.map(r => `
+      <div class="pv-row">
+        <div class="pv-row-ico" style="background:var(--navy-light);color:var(--navy)">📖</div>
+        <div style="flex:1;min-width:0">
+          <div class="pv-row-title">${r.ti}</div>
+          <div class="pv-row-meta">${r.au}</div>
+        </div>
+        <div class="pv-row-right">
+          ${r.tag==='ess' ? '<span class="txs" style="background:var(--gold-light);color:var(--amber);border:0.5px solid #E8C87A">Essential</span>' : ''}
+          <span style="font-size:12px;color:var(--text-faint)">↗</span>
+        </div>
+      </div>`).join('');
+
+    const dsfcRows = dsfcItems.map(name => `
+      <div class="pv-row">
+        <div class="pv-row-ico" style="background:var(--purple-light);color:var(--purple)">🏫</div>
+        <div style="flex:1;min-width:0">
+          <div class="pv-row-title">${name}</div>
+          <div class="pv-row-meta">DSFC resource · Pillar ${p.n}</div>
+        </div>
+        <div class="pv-row-right"><span style="font-size:12px;color:var(--text-faint)">↓</span></div>
+      </div>`).join('');
+
+    const sessionRow = p.path ? `
+      <div class="pv-sublabel">📋 Session materials</div>
+      <div class="pv-row">
+        <div class="pv-row-ico" style="background:var(--amber-light);color:var(--amber)">📋</div>
+        <div style="flex:1;min-width:0">
+          <div class="pv-row-title">${p.name} pathway — session materials</div>
+          <div class="pv-row-meta">CPD session · Pillar ${p.n}</div>
+        </div>
+        <div class="pv-row-right"><span style="font-size:12px;color:var(--text-faint)">↓</span></div>
+      </div>` : '';
+
+    return `
+      <div class="pv-section" id="pvs${p.n}">
+        <div class="pv-hdr" onclick="pvToggle(${p.n})">
+          <div class="pv-num" style="background:${p.bg};color:${p.color}">${p.n}</div>
+          <div class="pv-info">
+            <div class="pv-name">${p.name}</div>
+            <div class="pv-sub"><span>${p.gtt}</span><span style="color:var(--border-strong)">·</span><span>${totalCount} resources</span></div>
+          </div>
+          <div class="pv-right">
+            ${p.path ? '<span class="pv-path-badge">CPD pathway</span>' : ''}
+            <span class="pv-chevron">&#8964;</span>
+          </div>
+        </div>
+        <div class="pv-body-inner">
+          <div class="pv-sublabel">🔧 Classroom tools</div>
+          ${toolRows}
+          <div class="pv-sublabel">📖 Research texts</div>
+          ${resRows}
+          <div class="pv-sublabel">🏫 DSFC resources</div>
+          ${dsfcRows}
+          ${sessionRow}
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function pvToggle(n) {
+  const el = document.getElementById('pvs'+n);
+  el.classList.toggle('pv-open');
+}
+function pvExpandAll() {
+  document.querySelectorAll('.pv-section').forEach(el => el.classList.add('pv-open'));
+}
+function pvCollapseAll() {
+  document.querySelectorAll('.pv-section').forEach(el => el.classList.remove('pv-open'));
+}
+
+function setView(v) {
+  resView = v;
+  document.getElementById('vt-az').classList.toggle('active', v==='az');
+  document.getElementById('vt-pillar').classList.toggle('active', v==='pillar');
+  document.getElementById('vt-dsfc').classList.toggle('active', v==='dsfc');
+  document.getElementById('res-az-view').style.display = (v==='az'||v==='dsfc') ? '' : 'none';
+  document.getElementById('res-pillar-view').style.display = v==='pillar' ? '' : 'none';
+  document.getElementById('res-bc-current').textContent = v==='pillar' ? 'Resources — by pillar' : v==='dsfc' ? 'DSFC resources' : 'Resources A–Z';
+  if (v==='dsfc') {
+    resFilters = {tool:false, research:false, dsfc:true, session:false};
+    syncFilterChips();
+  }
+  renderResources();
+}
+
+function toggleRF(type) {
+  resFilters[type] = !resFilters[type];
+  syncFilterChips();
+  renderResources();
+}
+
+function syncFilterChips() {
+  const map = {tool:'tool-on', research:'res-on', dsfc:'dsfc-on', session:'sess-on'};
+  Object.keys(resFilters).forEach(k => {
+    const el = document.getElementById('rf-'+k);
+    if (resFilters[k]) el.classList.add(map[k]);
+    else el.classList.remove(map[k]);
+  });
+}
+
+function onResSearch(val) {
+  resQuery = val;
+  document.getElementById('res-clear').style.display = val ? 'inline' : 'none';
+  renderResources();
+}
+function clearResSearch() {
+  document.getElementById('res-search').value = '';
+  onResSearch('');
+}
+
+function renderResources() {
+  if (resView === 'pillar') {
+    buildPillarView();
+  } else {
+    buildAZView();
+  }
+}
+
+function initResources() {
+  resFilters = {tool:true, research:true, dsfc:true, session:true};
+  syncFilterChips();
+  buildPillarView();
+  buildAZView();
+}
+
+const PAGE_MAP={home:'pg-home',pillars:'pg-pillars',pd:'pg-pd',ml:'pg-ml',ts:'pg-ts',onboarding:'pg-onboarding',resources:'pg-resources'};
+
+function go(id){
+  Object.values(PAGE_MAP).forEach(p=>document.getElementById(p).classList.remove('active'));
+  document.getElementById(PAGE_MAP[id]).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function setActive(el){
+  document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ── BOOT ─────────────────────────────────────────────────────────────────────
+if (APPS_SCRIPT_URL && APPS_SCRIPT_URL !== 'YOUR_APPS_SCRIPT_URL_HERE') {
+  // Live mode — load from Google Sheets
+  loadData();
+} else {
+  // Fallback mode — use hardcoded data above
+  DATA_LOADED = true;
+  buildPills();
+  buildPGrid();
+  buildCarousel();
+  buildOnboarding();
+  initResources();
+}
+</script>
+</body>
+</html>
